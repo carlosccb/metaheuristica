@@ -16,44 +16,25 @@ class neighborExploratorKP{
 
 	private:
 
-		vector <SolucionMochila> _neighborhood
-		neighborOperator _operador;
+		neighborOperatorKP _operador;
 
 
 	public:
 
 		//Constructores
 		neighborExplorator(){};
-		neighborExplorator(neighborOperator &operador){
+		neighborExplorator(neighborOperatorKP &operador){
 
 			_operador = operador;
 
 		}
 
 		//Modificadores
-		void setOperator(neighborOperator &operador){_operador = operador;};
+		void setOperator(neighborOperatorKP &operador){_operador = operador;};
 
 		//Observadores
-		neighborOperator getOperator(){return _operador;};
-		vector <SolucionMochila> getNeighborhood(){return _neighborhood;};
-		SolucionMochila getNeighbor(int pos){return _neighborhood[pos];};
+		neighborOperatorKP getOperator(){return _operador;};
 
-		//Funciones auxiliares
-		bool addNeighbor(SolucionMochila &neighbor){
-
-
-			for(int i = 0; i < _neighborhood.size(); i++){
-
-				if(_neighborhood[i] == neighbor)
-					return false;
-			}
-
-			_neighborhood.push_back(neighbor);
-
-		  return true;
-		}
-
-		void reiniciarVecindario(){_neighborhood.clear();};
 };
 
 
@@ -69,69 +50,37 @@ class firstImprovementKP: public neighborExploratorKP{
 
 		//Constructores
 		firstImprovementKP(){};
-		firstImprovementKP(neighborOperator &operador): neighborExploratorKP(operador){};
+		firstImprovementKP(neighborOperatorKP &operador): neighborExploratorKP(operador){};
 
-
-		//Metodo que genera un vecindario a partir de una solucion inicial y un operador determinado
-		void generateNeighborhood(SolucionMochila &initialSolution){
-
-			reiniciarVecindario();
-			addNeighbor(initialSolution);
-
-			while(CONDICION_PARADA){		//Numero de vecinos que se quieren generar para cada iteracion
-
-
-
-				addNeighbor(getOperator().generateNeighbor(initialSolution));
-
-
-			}
-
-		}
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
 		SolucionMochila explorateNeighborhood(const int &KPSize, vector <problem_element> &info){
 
 
-			if(getNeighborhood().size() == 0){
-
-				cout << endl << "El vecindario a explorar esta vacio" << endl << endl;
-				exit(0);
-			}
-
 		  double actualFitness, bestFitness;
-		  SolucionMochila bestSolution;
+		  SolucionMochila bestSolution, actualSolution;
 
 
-			bestSolution = getNeighbor(0);				//El primero sera el optimo actual
-			bestFitness = bestSolution.getAptitude(KPSize, info);
+			bestSolution = initialSolution;
+			bestFitness = bestSolution.getAptitude(info);
 
 
-			for(int i = 1; i < getNeighborhood().size(); i++){
+			for(int i = 0; i < info.size(); i++){
 
-				actualFitness = getNeighbor(i).getAptitude(KPSize, info);
 
-				//OJO --> Dependera del tipo de problema
-				if(actualFitness >= bestFitness)
+				actualSolution = getOperator().generateNeighbor(initialSolution, i);
+				actualFitness = actualSolution.getAptitude(info);
 
-					return bestSolution;	//Devolvemos el nuevo optimo
-				
 
-				else{
+				if(actualFitness > bestFitness)
 
-					bestFitness = actualFitness;
-					bestSolution = getNeighborhood(i);
-
-				}
+					return actualSolution;	//Devolvemos el nuevo optimo
 
 			}
 
 
-			return bestSolution;			//El optimo sigue siendo el mismo
-		}
-
-
+			return initialSolution;			//El optimo sigue siendo el mismo
 };
 
 
@@ -148,54 +97,33 @@ class bestImprovementKP: public neighborExploratorKP{
 
 		//Constructores
 		bestImprovementKP(){};
-		bestImprovementKP(neighborOperator &operador): neighborExploratorKP(operador){};
+		bestImprovementKP(neighborOperatorKP &operador): neighborExploratorKP(operador){};
 
-
-		//Metodo que genera un vecindario a partir de una solucion inicial y un operador determinado
-		void generateNeighborhood(SolucionMochila &initialSolution){
-
-			reiniciarVecindario();
-			addNeighbor(initialSolution);
-
-			while(CONDICION_PARADA){		//Numero de vecinos que se quieren generar para cada iteracion
-
-
-
-				addNeighbor(getOperator().generateNeighbor(initialSolution));
-
-			}
-
-		}
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
 		SolucionMochila explorateNeighborhood(const int &KPSize, vector <problem_element> &info){
 
-
-			if(getNeighborhood().size() == 0){
-
-				cout << endl << "El vecindario a explorar esta vacio" << endl << endl;
-				exit(0);
-			}
-
 		  double actualFitness, bestFitness;
-		  SolucionMochila bestSolution;
+		  SolucionMochila bestSolution, actualSolution;
+
+			bestSolution = initialSolution;
+			bestFitness = bestSolution.getFitness();
 
 
-			bestSolution = getNeighbor(0);				//El primero sera el optimo actual
-			bestFitness = bestSolution.getAptitude(KPSize, info);
+			for(int i = 0; i < info.size(); i++){
 
 
-			for(int i = 1; i < getNeighborhood().size(); i++){
+				actualSolution = getOperator().generateNeighbor(initialSolution, i);
+				actualFitness = actualSolution.getFitness();
 
-				actualFitness = getNeighbor(i).getAptitude(KPSize, info);
 
-				//OJO --> Dependera del tipo de problema
-				if(actualFitness >= bestFitness){
+				if(actualFitness > bestFitness){
 
 					bestFitness = actualFitness;
-					bestSolution = getNeighborhood(i);
+					bestSolution = actualSolution;
 				}
+
 			}
 
 

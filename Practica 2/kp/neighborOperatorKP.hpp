@@ -1,33 +1,34 @@
-#ifndef		__NEIGHBOR_OPERATOR__
-#define		__NEIGHBOR_OPERATOR__
+#ifndef		__NEIGHBOR_OPERATOR_KP__
+#define		__NEIGHBOR_OPERATOR_KP__
 
-#include "SolucionMochila.hpp"
 #include <vector>
 #include <cmath>
+
+#include "../lib/Miscelanea.hpp"
+
+#include "SolucionMochila.hpp"
+
+
 using namespace std;
 
 
-
-/* De momento lo estoy haciendo todo de forma general para ver como hacerlo
-
-
-		Quizas podamos implementar en esta clase todo como metodos, pero no 
-		se si a lo mejor seria mas coñazo
-
-*/
-
-
-class neighborOperator{
+class neighborOperatorKP{
 
 
 	private:
 
-
+		int _KPSize;						//Tamaño de la mochila
+		vector <problem_element> _info;		//Informacion de cada elemento de la mochila
 
 	public:
 
 		//Constructor vacio
-		neighborOperator(){};
+		neighborOperatorKP(){};
+		neighborOperatorKP(const int KPSize, const vector <problem_element> &info){
+
+			_KPSize = KPSize;
+			_info = info;
+		};
 
 
 		//Metodo que genera un vecino de una solucion, teniendo en cuenta unos parametros
@@ -44,11 +45,13 @@ class neighborOperator{
                 return solucion;
 		}
 		
+		//Metodo que genera un vecino, invirtiendo un unico bit de una solucion dada
 		SolucionMochila generateNeighbor(SolucionMochila &initialSolution, int pos){
 
-		SolucionMochila solucion(initialSolution);
-		solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
-		return solucion;
+			SolucionMochila solucion(initialSolution);
+			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
+
+		  return solucion;
 		}
 	
 
