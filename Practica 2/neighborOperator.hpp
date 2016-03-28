@@ -33,10 +33,7 @@ class neighborOperator{
 		//Metodo que genera un vecino de una solucion, teniendo en cuenta unos parametros
 		Solution generateNeighbor(Solucion &initialSolution, const int &parametros){
 
-			
-
-				//Ni idea de que hay que hacer con los parametros o de cuales son
-				//Pero el resto es solo implementar la funcionalidad de ese operador
+		
 				
 
 
