@@ -152,7 +152,7 @@ class SolucionMochila{
 			double beneSol = beneficioSolucion(info);
 			double beneMax = beneficioMaximo(info);
 
-			return (beneSol - beneMax);
+			_fitness = (beneSol - beneMax);
 		}
 
 	}
