@@ -6,8 +6,9 @@
 
 #include "../lib/Miscelanea.hpp"
 
-#include "SolucionMochila.hpp"
-#include "neighborOperator.hpp"
+#include "neighborOperatorKP.hpp"
+#include "neighborExploratorKP.hpp"
+#include "SolucionViajante.hpp"
 
 
 
@@ -31,14 +32,14 @@ class localSearchKP{
 	public:
 
 		//Constructores
-		localSearch(neighborOperator &operador, firstImprovementKP &explorador){
+		localSearch(neighborOperatorKP &operador, firstImprovementKP &explorador){
 
 			_operador = operador;
 			_firstExplo = &explorador;
 
 		}
 
-		localSearch(neighborOperator &operador, bestImprovementKP &explorador){
+		localSearch(neighborOperatorKP &operador, bestImprovementKP &explorador){
 
 			_operador = operador;
 			_bestExplo = &explorador;
@@ -54,7 +55,7 @@ class localSearchKP{
 		//Observadores
 		double getFitness(){return _bestFitness;};
 		SolucionMochila getSolution(){return _bestSolution;};
-		neighborOperator getOperator(){return _operador;};
+		neighborOperatorKP getOperator(){return _operador;};
 
 
 
@@ -72,21 +73,16 @@ class localSearchKP{
 			while(iteraciones > 0 && contador < 2){
 
 
-				if(_firstImprovementKP != NULL){
+				if(_firstImprovementKP != NULL)
 
-					//Generamos un vecindario para la Solucion y despues lo exploramos
-					//El explorador se debe haber iniciado antes con uno de los tipos de operador
-					_firstImprovementKP->generateNeighborhood(_bestSolution);
-					actualSolution = _firstImprovementKP->explorateNeighborhood(info, KPSize);
-
-				}
-
-				else{
+					actualSolution = _firstImprovementKP->explorateNeighborhood(KPSize, info, bestSolution);
 
 
-					_bestImprovementKP->generateNeighborhood(_bestSolution);
-					actualSolution = _bestImprovementKP->explorateNeighborhood(info, KPSize);
-				}
+				else
+
+					actualSolution = _bestImprovementKP->explorateNeighborhood(KPSize, info, bestSolution);
+
+
 
 				actualFitness = actualSolution.getAptitude(info, KPSize);
 
@@ -99,12 +95,16 @@ class localSearchKP{
 																							*/
 
 				if(bestFitness == actualFitness)
+
 					contador++;
+
 
 				else{
 
 					_bestFitness = actualFitness;
 					_bestSolution = actualSolution;
+
+					contador = 0;
 				}
 
 
