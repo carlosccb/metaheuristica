@@ -11,6 +11,7 @@ class SolucionMochila{
 
  private:
   vector<bool> _solucion;
+  double _fitness;
 
  public:
     //Observadores
@@ -87,7 +88,7 @@ class SolucionMochila{
 
 
 	//Sumatorio del beneficio de la solucion actual
-	int beneficioSolucion(vector <problem_element> &info){
+	double beneficioSolucion(vector <problem_element> &info){
 
 		if(_solucion.size() != info.size()){
 
@@ -95,7 +96,7 @@ class SolucionMochila{
 			exit(0);
 		}
 
-	  int sumatorio = 0;
+	  double sumatorio = 0;
 
 		for(unsigned int i = 0; i < _solucion.size(); i++){
 
@@ -114,7 +115,7 @@ class SolucionMochila{
 
 
 	//Sumatorio del beneficio de todos los elementos de la instancia
-	int beneficioMaximo(vector <problem_element> &info){
+	double beneficioMaximo(vector <problem_element> &info){
 
 		if(_solucion.size() != info.size()){
 
@@ -122,7 +123,7 @@ class SolucionMochila{
 			exit(0);
 		}
 
-	  int sumatorio = 0;
+	  double sumatorio = 0;
 
 		for(unsigned int i = 0; i < _solucion.size(); i++){
 
@@ -136,10 +137,10 @@ class SolucionMochila{
 
 
 	//Funcion que devuelve la bondad de una solucion
-	int getAptitude(const int &KPSize, vector <problem_element> &info){
+	void setAptitude(const int &KPSize, vector <problem_element> &info){
 
 
-		int totalSize = pesoSolucion(info);	//Peso de los elementos escogidos
+		double totalSize = pesoSolucion(info);	//Peso de los elementos escogidos
 
 		if(totalSize <= KPSize)
 
@@ -148,15 +149,17 @@ class SolucionMochila{
 
 		else{
 
-			int beneSol = beneficioSolucion(info);
-			int beneMax = beneficioMaximo(info);
+			double beneSol = beneficioSolucion(info);
+			double beneMax = beneficioMaximo(info);
 
 			return (beneSol - beneMax);
 		}
 
 	}
 
-
+       inline double getFitness(){return _fitness;};
+       
+       inline void setFitness(double fitness){_fitness = fitness;};
 
   //Constructor
   SolucionMochila(int objetos=0){
