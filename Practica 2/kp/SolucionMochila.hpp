@@ -12,6 +12,8 @@ class SolucionMochila{
  private:
   vector<bool> _solucion;
   double _fitness;
+  double _sumaPeso;
+  double _sumaProfits;
 
  public:
     //Observadores
