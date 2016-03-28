@@ -1,7 +1,7 @@
 #ifndef		__NEIGHBOR_OPERATOR__
 #define		__NEIGHBOR_OPERATOR__
 
-#include "SolucionMochila.h"
+#include "SolucionMochila.hpp"
 #include <vector>
 #include <cmath>
 using namespace std;
