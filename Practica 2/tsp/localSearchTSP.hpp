@@ -6,8 +6,9 @@
 
 #include "../lib/Miscelanea.hpp"
 
+#include "neighborOperatorTSP.hpp"
+#include "neighborExploratorTSP.hpp"
 #include "SolucionViajante.hpp"
-#include "neighborOperator.hpp"
 
 
 
@@ -33,14 +34,14 @@ class localSearchTSP{
 	public:
 
 		//Constructores
-		localSearch(neighborOperator &operador, firstImprovementTSP &explorador){
+		localSearch(neighborOperatorTSP &operador, firstImprovementTSP &explorador){
 
 			_operador = operador;
 			_firstExplo = &explorador;
 
 		}
 
-		localSearch(neighborOperator &operador, bestImprovementTSP &explorador){
+		localSearch(neighborOperatorTSP &operador, bestImprovementTSP &explorador){
 
 			_operador = operador;
 			_bestExplo = &explorador;
@@ -56,7 +57,7 @@ class localSearchTSP{
 		//Observadores
 		double getFitness(){return _bestFitness;};
 		SolucionViajante getSolution(){return _bestSolution;};
-		neighborOperator getOperator(){return _operador;};
+		neighborOperatorTSP getOperator(){return _operador;};
 
 
 
@@ -74,21 +75,15 @@ class localSearchTSP{
 			while(iteraciones > 0 && contador < 2){
 
 
-				if(_firstImprovementTSP != NULL){
+				if(_firstImprovementTSP != NULL)
 
-					//Generamos un vecindario para la solucion y despues lo exploramos
-					//El explorador se debe haber iniciado antes con uno de los tipos de operador
-					_firstImprovementTSP->generateNeighborhood(_bestSolution);
-					actualSolution = _firstImprovementTSP->explorateNeighborhood(info);
-
-				}
-
-				else{
+					actualSolution = _firstImprovementTSP->explorateNeighborhood(info, _bestSolution);
 
 
-					_bestImprovementTSP->generateNeighborhood(_bestSolution);
-					actualSolution = _bestImprovementTSP->explorateNeighborhood(info);
-				}
+				else
+
+					actualSolution = _bestImprovementTSP->explorateNeighborhood(info, _bestSolution);
+				
 
 				actualFitness = actualSolution.getAptitude(info);
 
@@ -101,12 +96,16 @@ class localSearchTSP{
 																							*/
 
 				if(bestFitness == actualFitness)
+
 					contador++;
+
 
 				else{
 
 					_bestFitness = actualFitness;
 					_bestSolution = actualSolution;
+
+					contador = 0;
 				}
 
 
