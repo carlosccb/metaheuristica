@@ -1,7 +1,7 @@
 #ifndef		__NEIGHBOR_OPERATOR_TSP__
 #define		__NEIGHBOR_OPERATOR_TSP__
 
-#include <SolucionViajante>
+#include "SolucionViajante.hpp"
 #include <vector>
 #include <cmath>
 using namespace std;
@@ -21,7 +21,7 @@ class neighborOperator{
 
 
 
-                SolucionViajante generateNeighbor(SolucionViajante &initialSolution, int posA, int posB, bool inversion = false){
+                SolucionViajante generateNeighbor(SolucionViajante &initialSolution, int posA, int posB, bool inversion = true){
                 	int aux;
                 	SolucionViajante solucion(initialSolution);
                 	if(posA > posB){
@@ -48,10 +48,7 @@ class neighborOperator{
                 		}
                 		
                 	}
-                	
-                	
-                	
-                	
+                		
                 }
 
 
