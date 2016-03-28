@@ -13,6 +13,7 @@ class SolucionViajante{
 
  private:
   vector<int> _solucion;
+  double _fitness;
 
  public:
     //Observadores
@@ -67,7 +68,7 @@ class SolucionViajante{
 
 
 
-	double getAptitude(vector <problem_element> &info){
+	void setAptitude(vector <problem_element> &info){
 
 		double sumatorio = 0.0;
 
@@ -77,11 +78,13 @@ class SolucionViajante{
 			sumatorio += distancia(info[ _solucion[i] ], info[ _solucion[i+1] ]);
 
 		}
-
+                _fintness = sumatorio;
 		return sumatorio;
 	}
 
-
+       inline double getFitness(){return _fitness;};
+       
+       inline void setFitness(double fitness){_fitness = fitness;};
      
      
   SolucionViajante(unsigned int objetos=0){
