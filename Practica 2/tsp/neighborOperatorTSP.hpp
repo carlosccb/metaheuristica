@@ -53,9 +53,21 @@ class neighborOperatorTSP{
 					solucion.setSolucion(i, intercambio[i]);
 					
 				}
-				
+
+
+				//Re-calculamos el fitness para la solucion
+
+				double difPos = solucion.distancia(_info[posA - 1], _info[posB]) + solucion.distancia(_info[posA], _info[posB + 1]);
+
+				double difNeg = solucion.distancia(_info[posA - 1], _info[posA]) + solucion.distancia(_info[posB], _info[posB + 1]);
+
+
+				solucion.setFitness( (solucion.getFitness() - difNeg + difPos) );
+
 			}
-				
+
+
+		  return solucion;				
 		}
 
 };

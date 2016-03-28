@@ -82,9 +82,11 @@ class SolucionViajante{
 		return sumatorio;
 	}
 
-       inline double getFitness(){return _fitness;};
-       
-       inline void setFitness(double fitness){_fitness = fitness;};
+
+
+   inline double getFitness(){return _fitness;};
+   
+   inline void setFitness(double fitness){_fitness = fitness;};
      
      
   SolucionViajante(unsigned int objetos=0){
