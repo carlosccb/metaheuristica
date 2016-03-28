@@ -44,6 +44,12 @@ class neighborOperator{
                 return solucion;
 		}
 		
+		SolucionMochila generateNeighbor(SolucionMochila &initialSolution, int pos){
+
+		SolucionMochila solucion(initialSolution);
+		solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
+		return solucion;
+		}
 	
 
 };
