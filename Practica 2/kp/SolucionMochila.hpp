@@ -25,6 +25,13 @@ class SolucionMochila{
       return _solucion[n];
      else 
       return -1;}; 
+      
+      
+  inline double getSumaPeso(){return _sumaPeso;};
+  inline double getSumaProfits(){return _sumaProfits;};
+  inline double getFitness(){return _fitness;};
+       
+
 
    //Modificadores
   inline void setSolucion(vector<bool> solucion)
@@ -33,7 +40,10 @@ class SolucionMochila{
   void setSolucion(unsigned int pos, bool valor)
    {if (pos <= _solucion.size()-1)
      _solucion[pos]=valor;}; //Para modificar un elemento de la solución
-
+     
+  inline void setFitness(double fitness){_fitness = fitness;};
+  inline void setSumaPeso(double suma){_sumaPeso = suma;};
+  inline void setSumaProfits(double suma){_sumaProfits = suma;};
 
 	//Sobrecarga Operador =
 	SolucionMochila & operator=(const SolucionMochila &s){
@@ -67,7 +77,7 @@ class SolucionMochila{
 
 
 	//Sumatorio del peso de la solucion actual
-	int pesoSolucion(vector <problem_element> &info){
+	double pesoSolucion(vector <problem_element> &info){
 
 		if(_solucion.size() != info.size()){
 
@@ -85,6 +95,7 @@ class SolucionMochila{
 				sumatorio += info[i].b;
 		}
 
+		_sumaPeso = sumatorio;
 		return sumatorio;
 	}
 
@@ -107,7 +118,7 @@ class SolucionMochila{
 
 				sumatorio += info[i].a;
 		}
-
+                _sumaProfits = sumatorio;
 		return sumatorio;
 
 
@@ -159,10 +170,15 @@ class SolucionMochila{
 
 	}
 
-       inline double getFitness(){return _fitness;};
-       
-       inline void setFitness(double fitness){_fitness = fitness;};
-
+        //recalcula el fitness dado un cambio
+        void recalcularFitness(int n, vector <problem_element> &info){
+        	
+        	
+        	
+        	
+        	
+        	
+        }
   //Constructor
   SolucionMochila(int objetos=0){
    int i;
