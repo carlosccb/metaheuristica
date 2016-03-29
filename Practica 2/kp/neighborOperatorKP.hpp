@@ -22,8 +22,7 @@ class neighborOperatorKP{
 
 	public:
 
-		//Constructor vacio
-		neighborOperatorKP(){};
+		//Constructor
 		neighborOperatorKP(const int KPSize, const vector <problem_element> &info){
 
 			_KPSize = KPSize;
@@ -66,6 +65,7 @@ class neighborOperatorKP{
 
 			SolucionMochila solucion(initialSolution);
 			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
+			solucion.recalcularFitness(pos, _info, _KPSize)
 
 		  return solucion;
 		}
