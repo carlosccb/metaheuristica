@@ -65,7 +65,7 @@ class neighborOperatorKP{
 
 			SolucionMochila solucion(initialSolution);
 			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
-			solucion.recalcularFitness(pos, _info, _KPSize)
+			solucion.recalcularFitness(pos, _info, _KPSize);
 
 		  return solucion;
 		}
