@@ -38,9 +38,11 @@ class SolucionViajante{
 	//Sobrecarga Operador =
 	SolucionViajante & operator=(const SolucionViajante &s){
 
-		if(this != &s)
+		if(this != &s){
 
 			this->_solucion = s.getSolucion();
+			this->_fitness = s.getFitess();
+		}
 
 	  return *this;
 

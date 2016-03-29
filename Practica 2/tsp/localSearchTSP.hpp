@@ -50,19 +50,17 @@ class localSearchTSP{
 		
 
 		//Modificadores
-		void setFitness(double &bestFitness){_bestFitness = bestFitness;};
 		void setSolution(SolucionViajante &bestSolution){_bestSolution = bestSolution;};
 
 
 		//Observadores
-		double getFitness(){return _bestFitness;};
 		SolucionViajante getSolution(){return _bestSolution;};
 		neighborOperatorTSP getOperator(){return _operador;};
 
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		void localOptimum(vector <problem_element> &info, const SolucionViajante &initialSolution, SolucionViajante &optimumSolution, double &optimumFitness){
+		void localOptimum(const SolucionViajante &initialSolution, SolucionViajante &optimumSolution, double &optimumFitness){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
@@ -77,15 +75,15 @@ class localSearchTSP{
 
 				if(_firstImprovementTSP != NULL)
 
-					actualSolution = _firstImprovementTSP->explorateNeighborhood(info, _bestSolution);
+					actualSolution = _firstImprovementTSP->explorateNeighborhood(_bestSolution);
 
 
 				else
 
-					actualSolution = _bestImprovementTSP->explorateNeighborhood(info, _bestSolution);
+					actualSolution = _bestImprovementTSP->explorateNeighborhood(_bestSolution);
 				
 
-				actualFitness = actualSolution.getAptitude(info);
+				actualFitness = actualSolution.getFitness();
 
 
 				/*

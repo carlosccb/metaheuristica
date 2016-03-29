@@ -56,7 +56,7 @@ class firstImprovementTSP: public neighborExploratorTSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionViajante explorateNeighborhood(vector <problem_element> &info, const SolucionViajante &initialSolution){
+		SolucionViajante explorateNeighborhood(const SolucionViajante &initialSolution){
 
 
 		  double actualFitness, bestFitness;
@@ -64,17 +64,17 @@ class firstImprovementTSP: public neighborExploratorTSP{
 
 
 			bestSolution = initialSolution;
-			bestFitness = bestSolution.getAptitude(info);
+			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < info.size() - 1; i++){
+			for(int i = 0; i < getOperator().getInfo().size() - 1; i++){
 
-				for(int j = i + 1; j < info.size(); j++){
+				for(int j = i + 1; j < getOperator().getInfo().size(); j++){
 
 
 
 					actualSolution = getOperator().generateNeighbor(initialSolution, i, j);
-					actualFitness = actualSolution.getAptitude(info);
+					actualFitness = actualSolution.getFitness();
 
 
 					if(actualFitness < bestFitness)
@@ -108,7 +108,7 @@ class bestImprovementTSP: public neighborExploratorTSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionViajante explorateNeighborhood(vector <problem_element> &info, const SolucionViajante &initialSolution){
+		SolucionViajante explorateNeighborhood(const SolucionViajante &initialSolution){
 
 
 		  double actualFitness, bestFitness;
@@ -116,17 +116,17 @@ class bestImprovementTSP: public neighborExploratorTSP{
 
 
 			bestSolution = initialSolution;
-			bestFitness = bestSolution.getAptitude(info);
+			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < info.size() - 1; i++){
+			for(int i = 0; i < getOperator().getInfo().size() - 1; i++){
 
-				for(int j = i + 1; j < info.size(); j++){
+				for(int j = i + 1; j < getOperator().getInfo().size(); j++){
 
 
 
 					actualSolution = getOperator().generateNeighbor(initialSolution, i, j);
-					actualFitness = actualSolution.getAptitude(info);
+					actualFitness = actualSolution.getFitness();
 
 
 					if(actualFitness < bestFitness){

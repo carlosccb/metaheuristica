@@ -22,6 +22,22 @@ class neighborOperatorTSP{
 		neighborOperator(){};
 		neighborOperator(vector <problem_element> &info){_info = info;};
 
+		//Observadores
+		vector <problem_element> getInfo(){return _info;};
+
+
+		//Sobrecarga operador igual
+		neighborOperatorTSP & operator=(const neighborOperatorTSP &s){
+
+			if(this != &s){
+
+				this->_info = s.getInfo();
+			}
+
+		  return *this;
+		};
+
+
 
 		SolucionViajante generateNeighbor(SolucionViajante &initialSolution, int posA, int posB, bool inversion = true){
 
