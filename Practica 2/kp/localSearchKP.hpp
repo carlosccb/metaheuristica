@@ -48,19 +48,17 @@ class localSearchKP{
 		
 
 		//Modificadores
-		void setFitness(double &bestFitness){_bestFitness = bestFitness;};
 		void setSolution(SolucionMochila &bestSolution){_bestSolution = bestSolution;};
 
 
 		//Observadores
-		double getFitness(){return _bestFitness;};
 		SolucionMochila getSolution(){return _bestSolution;};
 		neighborOperatorKP getOperator(){return _operador;};
 
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		void localOptimum(vector <problem_element> &info, const int &KPSize, const SolucionMochila &initialSolution, SolucionMochila &optimumSolution, double &optimumFitness){
+		void localOptimum(const SolucionMochila &initialSolution, SolucionMochila &optimumSolution, double &optimumFitness){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
@@ -75,16 +73,16 @@ class localSearchKP{
 
 				if(_firstImprovementKP != NULL)
 
-					actualSolution = _firstImprovementKP->explorateNeighborhood(KPSize, info, bestSolution);
+					actualSolution = _firstImprovementKP->explorateNeighborhood(_bestSolution);
 
 
 				else
 
-					actualSolution = _bestImprovementKP->explorateNeighborhood(KPSize, info, bestSolution);
+					actualSolution = _bestImprovementKP->explorateNeighborhood(_bestSolution);
 
 
 
-				actualFitness = actualSolution.getAptitude(info, KPSize);
+				actualFitness = actualSolution.getFitness();
 
 
 				/*

@@ -48,9 +48,13 @@ class SolucionMochila{
 	//Sobrecarga Operador =
 	SolucionMochila & operator=(const SolucionMochila &s){
 
-		if(this != &s)
+		if(this != &s){
 
 			this->_solucion = s.getSolucion();
+			this->_fitness = s.getFitness();
+			this->sumaPeso = s.getSumaPeso();
+			this->sumaProfits = s.getSumaProfits();
+		}
 
 	  return *this;
 

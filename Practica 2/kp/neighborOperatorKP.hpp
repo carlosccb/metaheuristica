@@ -30,6 +30,22 @@ class neighborOperatorKP{
 			_info = info;
 		};
 
+		//Observadores
+		vector <problem_element> getInfo(){return _info;};
+		int getKPSize(){return _KPSize;};
+
+		//Sobrecarga operador =
+		neighborOperatorKP & operator=(const neighborOperatorKP &s){
+
+			if(this != &s){
+
+				this->_info = s.getInfo();
+				this->_KPSize = s.getKPSize();
+			}
+
+		  return *this;
+		};
+
 
 		//Metodo que genera un vecino de una solucion, teniendo en cuenta unos parametros
 		SolucionMochila generateNeighbor(SolucionMochila &initialSolution, vector<int> &parametros){

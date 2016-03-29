@@ -55,7 +55,7 @@ class firstImprovementKP: public neighborExploratorKP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionMochila explorateNeighborhood(const int &KPSize, vector <problem_element> &info, const SolucionViajante &initialSolution){
+		SolucionMochila explorateNeighborhood(const SolucionViajante &initialSolution){
 
 
 		  double actualFitness, bestFitness;
@@ -63,14 +63,14 @@ class firstImprovementKP: public neighborExploratorKP{
 
 
 			bestSolution = initialSolution;
-			bestFitness = bestSolution.getAptitude(info);
+			bestFitness = bestSolution.getFitness();
 
 
 			for(int i = 0; i < info.size(); i++){
 
 
 				actualSolution = getOperator().generateNeighbor(initialSolution, i);
-				actualFitness = actualSolution.getAptitude(info);
+				actualFitness = actualSolution.getFitness;
 
 
 				if(actualFitness > bestFitness)
@@ -102,7 +102,7 @@ class bestImprovementKP: public neighborExploratorKP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionMochila explorateNeighborhood(const int &KPSize, vector <problem_element> &info, const SolucionViajante &initialSolution){
+		SolucionMochila explorateNeighborhood(const SolucionViajante &initialSolution){
 
 		  double actualFitness, bestFitness;
 		  SolucionMochila bestSolution, actualSolution;
