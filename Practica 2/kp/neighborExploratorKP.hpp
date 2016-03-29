@@ -66,7 +66,7 @@ class firstImprovementKP: public neighborExploratorKP{
 			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < info.size(); i++){
+			for(int i = 0; i < getOperator().getInfo().size(); i++){
 
 
 				actualSolution = getOperator().generateNeighbor(initialSolution, i);
@@ -111,7 +111,7 @@ class bestImprovementKP: public neighborExploratorKP{
 			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < info.size(); i++){
+			for(int i = 0; i < getOperator().getInfo().size(); i++){
 
 
 				actualSolution = getOperator().generateNeighbor(initialSolution, i);
