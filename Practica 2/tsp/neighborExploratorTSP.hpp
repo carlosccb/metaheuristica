@@ -32,6 +32,18 @@ class neighborExploratorTSP{
 
 		}
 
+
+		//Sobrecarga operador igual
+		neighborExploratorTSP & operator=(const neighborExploratorTSP &s){
+
+			if(this != &s){
+
+				this->_operador = s.getOperator();
+			}
+
+		  return *this;
+		};
+
 		//Modificadores
 		void setOperator(neighborOperatorTSP &operador){_operador = operador;};
 

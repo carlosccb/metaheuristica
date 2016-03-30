@@ -29,6 +29,17 @@ class neighborExploratorKP{
 
 		}
 
+		neighborExploratorKP & operator=(const neighborExploratorKP &s){
+
+			if(this != &s){
+
+				this->_operador = s.getOperator();
+			}
+
+		  return *this;
+		};
+
+
 		//Modificadores
 		void setOperator(neighborOperatorKP &operador){_operador = operador;};
 
