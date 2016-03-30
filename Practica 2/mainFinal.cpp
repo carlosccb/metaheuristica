@@ -54,24 +54,25 @@ int main(int argc, char **argv) {
 
 			//Generamos la solucion aleatoria inicial
 			SolucionViajante initialSolution();
-			initialSolution = randomSolution.randomSolutionGenerator(info.size())			
+			initialSolution = randomSolution.randomSolutionGenerator(info.size());
 
 
-			if(/* Escogemos entre el firstImprovement o el bestImprovement */){
+			//Escogemos la primera mejora
+			if(cli.getOptExplo() == 1){
 
 
 				double localOptimumFitness;
 				SolucionViajante localOptimumSolution();
 
-				fistImprovementTSP exploradorVecindario(operadorVecindario);
+				firstImprovementTSP exploradorVecindario(operadorVecindario);
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal(initialSolution, localOptimumSolution, localOptimumFitness);
+				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
 			}
 
 
-
+			//Escogemos la mejor mejora
 			else{
 
 				double localOptimumFitness;
@@ -81,7 +82,7 @@ int main(int argc, char **argv) {
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal(initialSolution, localOptimumSolution, localOptimumFitness);
+				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
 
 			}
 
@@ -90,13 +91,14 @@ int main(int argc, char **argv) {
 			//Por aqui habria que mostrar / guardar los resultados
 
 
+		}
 		/*####################################################################################*/
 		/*####################################################################################*/
 
 
 
 		//El problema seleccionado es KP
-		} else{
+		else{
 
 
 			neighborOperatorKP operadorVecindario(info);
@@ -104,34 +106,34 @@ int main(int argc, char **argv) {
 
 			//Generamos la solucion aleatoria inicial
 			SolucionMochila initialSolution();
-			initialSolution = randomSolution.randomSolutionGenerator(info.size())			
+			initialSolution = randomSolution.randomSolutionGenerator(info.size());
 
 
-			if(/* Escogemos entre el firstImprovement o el bestImprovement */){
+			if(cli.getOptExplo() == 1){
 
 
 				double localOptimumFitness;
 				SolucionMochila localOptimumSolution();
 
-				fistImprovementKP exploradorVecindario(operadorVecindario);
+				firstImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal(initialSolution, localOptimumSolution, localOptimumFitness);
+				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
 			}
 
 
 
 			else{
 
-				double localOptimumFitness;
-				SolucionMochila localOptimumSolution();
+				double localOptimumFitness2;
+				SolucionMochila localOptimumSolution2();
 
 				bestImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal(initialSolution, localOptimumSolution, localOptimumFitness);
+				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
 
 			}
 

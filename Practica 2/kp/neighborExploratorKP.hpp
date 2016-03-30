@@ -29,7 +29,7 @@ class neighborExploratorKP{
 
 		}
 
-		neighborExploratorKP & operator=(const neighborExploratorKP &s){
+		neighborExploratorKP & operator=(neighborExploratorKP &s){
 
 			if(this != &s){
 

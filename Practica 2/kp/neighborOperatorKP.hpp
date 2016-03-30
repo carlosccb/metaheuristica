@@ -23,7 +23,7 @@ class neighborOperatorKP{
 	public:
 
 		//Constructor
-		neighborOperatorKP(const int KPSize, const vector <problem_element> &info){
+		neighborOperatorKP(const int &KPSize, const vector <problem_element> &info){
 
 			_KPSize = KPSize;
 			_info = info;
