@@ -6,8 +6,8 @@
 
 #include "Miscelanea.hpp"
 #include "Instance.hpp"
-#include "../KP/InstanceKP.hpp"
-#include "../TSP/InstanceTSP.hpp"
+#include "../kp/InstanceKP.hpp"
+#include "../tsp/InstanceTSP.hpp"
 
 class Interfaz {
 	private:
