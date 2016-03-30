@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 		//Se ejecuta hasta que se carga una instancia de un fichero valido
 		vector<problem_element> info = cli.read_instance(veces);
 
-
+               for (i = 0; i < veces; i++){
 
 		//El problema seleccionado es TSP
 		if(cli.getOpt() == 1){
@@ -155,7 +155,7 @@ int main(int argc, char **argv) {
 		}
 
 
-
+               }
 
 	}	//Fin while(true)
 
