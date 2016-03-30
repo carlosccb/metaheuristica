@@ -7,12 +7,12 @@
 #include "lib/Interfaz.hpp"
 
 #include "lib/Instance.hpp"
-#include "kp/InstanceKP.hpp"
-#include "tsp/InstanceTSP.hpp"
-#include "kp/SolucionMochila.hpp"
-#include "tsp/SolucionViajante.hpp"
-#include "kp/SolGeneratorMochila.hpp"
-#include "tsp/SolGeneratorViajante.hpp"
+#include "KP/InstanceKP.hpp"
+#include "TSP/InstanceTSP.hpp"
+#include "KP/SolucionMochila.hpp"
+#include "TSP/SolucionViajante.hpp"
+#include "KP/SolGeneratorMochila.hpp"
+#include "TSP/SolGeneratorViajante.hpp"
 
 
 using namespace std;

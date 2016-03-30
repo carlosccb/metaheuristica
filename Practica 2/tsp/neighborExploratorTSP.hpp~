@@ -120,7 +120,7 @@ class bestImprovementTSP: public neighborExploratorTSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionViajante explorateNeighborhood(SolucionViajante &initialSolution){
+		SolucionViajante explorateNeighborhood(const SolucionViajante &initialSolution){
 
 
 		  double actualFitness, bestFitness;

@@ -127,13 +127,13 @@ int main(int argc, char **argv) {
 			else{
 
 				double localOptimumFitness2;
-				SolucionMochila localOptimumSolution2;
+				SolucionMochila localOptimumSolution2();
 
 				bestImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal.localOptimum(initialSolution, localOptimumSolution2, localOptimumFitness2);
+				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
 
 			}
 

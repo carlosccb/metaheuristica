@@ -92,7 +92,6 @@ class firstImprovementKP: public neighborExploratorKP{
 
 
 			return initialSolution;			//El optimo sigue siendo el mismo
-                        }
 };
 
 

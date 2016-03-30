@@ -24,7 +24,7 @@ class SolGeneratorViajante{
 
 		----------------------------------------------------- */
 
-		SolucionViajante randomSolutionGenerator(int objetos){
+		SolucionViajante randomSolutionGenerator(unsigned int objetos){
 			
 			SolucionViajante solucion(objetos);
 
