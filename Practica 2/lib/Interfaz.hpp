@@ -49,7 +49,7 @@ class Interfaz {
 				std::cout << "  0. Exit" << std::endl;
 
 				std::cin >> optExplo;
-			} while(0 > opt || opt > 2);
+			} while(0 > optExplo || optExplo > 2);
 
 			return optExplo;
 		}

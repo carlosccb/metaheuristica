@@ -68,10 +68,10 @@ class InstanceKP : public Instance {
 		void saveResults(const double &best_fitness, const SolucionMochila &best_solution){
 
 
-		  int id = 0;	//Identificador del numero de ejecucion del programa
+		  int id = 1;	//Identificador del numero de ejecucion del programa
 		  string line;
 
-		  ifstream fr("KP_soluciones.txt");
+		  ifstream fr("KP_onlyFitness.txt");
 			
 			//Contamos cual ejecucion del programa es esta
 			if(fr.is_open()){
@@ -89,10 +89,22 @@ class InstanceKP : public Instance {
 
 
 			//Escribimos los resultados de esta ejecucion
-			fs << id << " " << best_fitness << "\n";
+			fs << "Ejecución " << id << ":"<< endl;
+                        for (int i = 0; i < best_solution.getSolucion().size(); i++){
+                             fs << i << " ";
+                               if (best_solution.getSolucion(i) == true){ fs << "Si " << 1 << endl;}
+                                else { fs << "No " << 0 << endl;}
+
+ 
+                        }
+                        fs << "Fitness: " << best_fitness << "\n";
+                        fs << endl << endl << endl << endl;
 
 			fs.close();
 
+                  fs.open("KP_onlyFitness.txt", std::ofstream::app);
+                   fs << id << " " << best_fitness << endl;
+                  fs.close();
 
 		}
 

@@ -1,7 +1,9 @@
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <vector>
 #include <string>
+#include <ctime>
 
 
 #include "lib/Interfaz.hpp"
@@ -51,6 +53,7 @@ int main(int argc, char **argv) {
 
 			neighborOperatorTSP operadorVecindario(info);
 			SolGeneratorViajante randomSolution;
+                        InstanceTSP instance;
 
 			//Generamos la solucion aleatoria inicial
 			SolucionViajante initialSolution;
@@ -63,12 +66,15 @@ int main(int argc, char **argv) {
 
 				double localOptimumFitness;
 				SolucionViajante localOptimumSolution;
+                                clock_t time = clock(); 
 
 				firstImprovementTSP exploradorVecindario(operadorVecindario);
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
 				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
+                      instance.saveResults(localOptimumFitness, localOptimumSolution);
+                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
 			}
 
 
@@ -77,18 +83,19 @@ int main(int argc, char **argv) {
 
 				double localOptimumFitness;
 				SolucionViajante localOptimumSolution;
+                                clock_t time = clock();
 
 				bestImprovementTSP exploradorVecindario(operadorVecindario);
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
 				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
+                      instance.saveResults(localOptimumFitness, localOptimumSolution);
+                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
 
 			}
 
 
-
-			//Por aqui habria que mostrar / guardar los resultados
 
 
 		}
@@ -103,6 +110,7 @@ int main(int argc, char **argv) {
 
 			neighborOperatorKP operadorVecindario(info.size(), info);
 			SolGeneratorMochila randomSolution;
+                        InstanceKP instance;
 
 			//Generamos la solucion aleatoria inicial
 			SolucionMochila initialSolution;
@@ -114,12 +122,15 @@ int main(int argc, char **argv) {
 
 				double localOptimumFitness;
 				SolucionMochila localOptimumSolution;
+                                clock_t time = clock();
 
 				firstImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
 				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
+                      instance.saveResults(localOptimumFitness, localOptimumSolution);
+                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
 			}
 
 
@@ -128,17 +139,19 @@ int main(int argc, char **argv) {
 
 				double localOptimumFitness2;
 				SolucionMochila localOptimumSolution2;
+                                clock_t time = clock();
 
 				bestImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
 				busquedaLocal.localOptimum(initialSolution, localOptimumSolution2, localOptimumFitness2);
+                      instance.saveResults(localOptimumFitness2, localOptimumSolution2);
+                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
 
 			}
 
 
-			//Por aqui habria que mostrar / guardar los resultados
 		}
 
 

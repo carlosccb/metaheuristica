@@ -52,10 +52,10 @@ class InstanceTSP : public Instance {
 		void saveResults(const double &best_fitness, const SolucionViajante &best_solution){
 
 
-		  int id = 0;	//Identificador del numero de ejecucion del programa
+		  int id = 1;	//Identificador del numero de ejecucion del programa
 		  string line;
 
-		  ifstream fr("TSP_soluciones.txt");
+		  ifstream fr("TSP_onlyFitness.txt");
 			
 			//Contamos cual ejecucion del programa es esta
 			if(fr.is_open()){
@@ -73,9 +73,22 @@ class InstanceTSP : public Instance {
 
 
 			//Escribimos los resultados de esta ejecucion
-			fs << id << " " << best_fitness << "\n";
+			fs << "Ejecución " << id << ":" << endl;
+                        for (int i = 0; i < best_solution.getSolucion().size(); i++){
+                             fs << best_solution.getSolucion(i) << "-> ";
+                          }
+
+
+
+                        fs << endl << "Fitness: " << best_fitness << "\n" << "\n" << "\n" << "\n";
 
 			fs.close();
+
+
+		  fs.open("TSP_onlyFitness.txt", std::ofstream::app);
+                  fs << id << " " << best_fitness << endl;
+                  fs.close();
+                  
 
 
 		}
