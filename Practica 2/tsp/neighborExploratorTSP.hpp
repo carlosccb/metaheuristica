@@ -7,7 +7,7 @@
 #include "../lib/Miscelanea.hpp"
 
 #include "SolucionViajante.hpp"
-#include "neighborOperator.hpp"
+#include "neighborOperatorTSP.hpp"
 
 
 using namespace std;

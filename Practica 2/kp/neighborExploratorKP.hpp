@@ -6,7 +6,7 @@
 
 #include "../lib/Miscelanea.hpp"
 
-#include "neighborOperator.hpp"
+#include "neighborOperatorKP.hpp"
 
 using namespace std;
 

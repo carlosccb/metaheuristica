@@ -8,7 +8,7 @@
 
 #include "neighborOperatorKP.hpp"
 #include "neighborExploratorKP.hpp"
-#include "SolucionViajante.hpp"
+#include "SolucionMochila.hpp"
 
 
 
