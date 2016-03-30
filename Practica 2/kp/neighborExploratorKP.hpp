@@ -22,14 +22,14 @@ class neighborExploratorKP{
 	public:
 
 		//Constructores
-		neighborExplorator(){};
-		neighborExplorator(neighborOperatorKP &operador){
+		neighborExploratorKP(){};
+		neighborExploratorKP(const neighborOperatorKP &operador){
 
 			_operador = operador;
 
 		}
 
-		neighborExploratorKP & operator=(neighborExploratorKP &s){
+		neighborExploratorKP & operator=(const neighborExploratorKP &s){
 
 			if(this != &s){
 
@@ -37,14 +37,14 @@ class neighborExploratorKP{
 			}
 
 		  return *this;
-		};
+		}
 
 
 		//Modificadores
 		void setOperator(neighborOperatorKP &operador){_operador = operador;};
 
 		//Observadores
-		neighborOperatorKP getOperator(){return _operador;};
+		neighborOperatorKP getOperator() const {return _operador;};
 
 };
 
@@ -66,7 +66,7 @@ class firstImprovementKP: public neighborExploratorKP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionMochila explorateNeighborhood(const SolucionViajante &initialSolution){
+		SolucionMochila explorateNeighborhood(const SolucionMochila &initialSolution){
 
 
 		  double actualFitness, bestFitness;
@@ -81,7 +81,7 @@ class firstImprovementKP: public neighborExploratorKP{
 
 
 				actualSolution = getOperator().generateNeighbor(initialSolution, i);
-				actualFitness = actualSolution.getFitness;
+				actualFitness = actualSolution.getFitness();
 
 
 				if(actualFitness > bestFitness)
@@ -113,7 +113,7 @@ class bestImprovementKP: public neighborExploratorKP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionMochila explorateNeighborhood(const SolucionViajante &initialSolution){
+		SolucionMochila explorateNeighborhood(const SolucionMochila &initialSolution){
 
 		  double actualFitness, bestFitness;
 		  SolucionMochila bestSolution, actualSolution;

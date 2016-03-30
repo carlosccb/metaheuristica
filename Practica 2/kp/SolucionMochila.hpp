@@ -27,9 +27,9 @@ class SolucionMochila{
       return -1;}; 
       
       
-  inline double getSumaPeso(){return _sumaPeso;};
-  inline double getSumaProfits(){return _sumaProfits;};
-  inline double getFitness(){return _fitness;};
+  inline double getSumaPeso() const {return _sumaPeso;};
+  inline double getSumaProfits() const {return _sumaProfits;};
+  inline double getFitness() const {return _fitness;};
        
 
 
@@ -52,32 +52,13 @@ class SolucionMochila{
 
 			this->_solucion = s.getSolucion();
 			this->_fitness = s.getFitness();
-			this->sumaPeso = s.getSumaPeso();
-			this->sumaProfits = s.getSumaProfits();
+			this->_sumaPeso = s.getSumaPeso();
+			this->_sumaProfits = s.getSumaProfits();
 		}
 
 	  return *this;
 
 	}
-
-
-
-	//Sobrecarga del Operador ==
-	inline bool & operator==(const SolucionMochila &s){
-
-	
-		for(int i = 0; i < this->_solucion.size(); i++){
-
-			if(this->_solucion[i] != s.getSolucion(i))
-				return false;
-
-		}
-
-		return true;
-	}
-
-
-
 
 
 	//Sumatorio del peso de la solucion actual
@@ -161,7 +142,7 @@ class SolucionMochila{
 
 		if(totalSize <= KPSize)
 
-			return beneficioSolucion(info);	//Beneficio de los elementos escogidos
+			_fitness = beneficioSolucion(info);		//Beneficio de los elementos escogidos
 
 
 		else{
@@ -198,7 +179,7 @@ class SolucionMochila{
         				setFitness(getFitness() - beneficio);
         				setSumaPeso(getSumaPeso() - peso);
         			}else{ //si ahora no nos pasamos
-        				setFitness(getFitness() + beneficioMaximo(info) - beneficio)
+        				setFitness(getFitness() + beneficioMaximo(info) - beneficio);
         				setSumaPeso(getSumaPeso() - peso);
         			}
         		}else{ //no nos pasabamos

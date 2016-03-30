@@ -12,6 +12,7 @@
 class Interfaz {
 	private:
 		int opt;
+		int optExplo;
 		std::string fileName;
 
 		unsigned int _capacity;
@@ -26,6 +27,7 @@ class Interfaz {
 		unsigned int getCapacity() {return _capacity;}
 
 		int option_menu() {
+
 			do {
 				std::cout << "\n\n";
 				std::cout << "¿Que problema desea ejecutar?: " << std::endl;
@@ -36,10 +38,25 @@ class Interfaz {
 				std::cin >> opt;
 			} while(0 > opt || opt > 2);
 
-			return opt;
+			if(opt == 0)
+				return opt;
+
+			do {
+				std::cout << "\n\n";
+				std::cout << "¿Que tipo de Explorador de Vecindario desea usar?: " << std::endl;
+				std::cout << "  1. Primera Mejora" << std::endl;
+				std::cout << "  2. Mejor Mejora" << std::endl;
+				std::cout << "  0. Exit" << std::endl;
+
+				std::cin >> optExplo;
+			} while(0 > opt || opt > 2);
+
+			return optExplo;
 		}
 
 		int getOpt() {return opt;}
+		int getOptExplo() {return optExplo;}
+
 
 		std::vector<problem_element> read_instance(int &veces) {
 			bool ret = false;
@@ -51,11 +68,11 @@ class Interfaz {
 				std::cin >> fileName;
 
 				if(opt == 1) {
-					fileName =  "TSP/" + fileName;
+					fileName =  "tsp/" + fileName;
 					InstanceTSP inst(fileName);
 					ret = inst.load_instance(inst_v);
 				} else if(opt == 2) {
-					fileName =  "KP/" + fileName;
+					fileName =  "kp/" + fileName;
 					InstanceKP inst(fileName);
 					int inst_num;
 					std::cout << "¿Que numero de instancia desea cargar?: ";

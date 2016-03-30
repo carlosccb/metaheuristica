@@ -25,24 +25,24 @@ class localSearchTSP{
 		double _bestFitness = 0;
 		SolucionViajante _bestSolution;
 
-		neighborOperator _operador;
+		neighborOperatorTSP _operador;
 
-		bestImrpovementTSP _bestExplo = NULL;
-		firstImrpovementTSP _firstExplo = NULL;
+		bestImprovementTSP _bestExplo;
+		firstImprovementTSP _firstExplo;
 		bool isBestExplorator;
 
 
 	public:
 
 		//Constructores
-		localSearch(neighborOperatorTSP &operador, firstImprovementTSP &explorador){
+		localSearchTSP(neighborOperatorTSP &operador, firstImprovementTSP &explorador){
 
 			_operador = operador;
 			_firstExplo = explorador;
 			isBestExplorator = false;
 		}
 
-		localSearch(neighborOperatorTSP &operador, bestImprovementTSP &explorador){
+		localSearchTSP(neighborOperatorTSP &operador, bestImprovementTSP &explorador){
 
 			_operador = operador;
 			_bestExplo = explorador;

@@ -23,6 +23,7 @@ class neighborOperatorKP{
 	public:
 
 		//Constructor
+		neighborOperatorKP(){};
 		neighborOperatorKP(const int &KPSize, const vector <problem_element> &info){
 
 			_KPSize = KPSize;
@@ -30,8 +31,8 @@ class neighborOperatorKP{
 		};
 
 		//Observadores
-		vector <problem_element> getInfo(){return _info;};
-		int getKPSize(){return _KPSize;};
+		vector <problem_element> getInfo() const {return _info;};
+		int getKPSize() const {return _KPSize;};
 
 		//Sobrecarga operador =
 		neighborOperatorKP & operator=(const neighborOperatorKP &s){
@@ -45,7 +46,7 @@ class neighborOperatorKP{
 		  return *this;
 		};
 
-
+/*
 		//Metodo que genera un vecino de una solucion, teniendo en cuenta unos parametros
 		SolucionMochila generateNeighbor(SolucionMochila &initialSolution, vector<int> &parametros){
 
@@ -59,9 +60,10 @@ class neighborOperatorKP{
 
                 return solucion;
 		}
+*/
 		
 		//Metodo que genera un vecino, invirtiendo un unico bit de una solucion dada
-		SolucionMochila generateNeighbor(SolucionMochila &initialSolution, int pos){
+		SolucionMochila generateNeighbor(const SolucionMochila &initialSolution, int pos){
 
 			SolucionMochila solucion(initialSolution);
 			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));

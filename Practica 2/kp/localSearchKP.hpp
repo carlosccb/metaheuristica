@@ -11,7 +11,6 @@
 #include "SolucionMochila.hpp"
 
 
-
 using namespace std;
 
 
@@ -23,17 +22,17 @@ class localSearchKP{
 		double _bestFitness = 0;
 		SolucionMochila _bestSolution;
 
-		neighborOperator _operador;
+		neighborOperatorKP _operador;
 
-		bestImrpovementKP _bestExplo();
-		firstImrpovementKP _firstExplo();
+		bestImprovementKP _bestExplo;
+		firstImprovementKP _firstExplo;
 		bool isBestExplorator;
 
 
 	public:
 
 		//Constructores
-		localSearch(neighborOperatorKP &operador, firstImprovementKP &explorador){
+		localSearchKP(neighborOperatorKP &operador, firstImprovementKP &explorador){
 
 			_operador = operador;
 			_firstExplo = explorador;
@@ -41,14 +40,13 @@ class localSearchKP{
 			isBestExplorator = false;
 		}
 
-		localSearch(neighborOperatorKP &operador, bestImprovementKP &explorador){
+		localSearchKP(neighborOperatorKP &operador, bestImprovementKP &explorador){
 
 			_operador = operador;
 			_bestExplo = explorador;
 
 			isBestExplorator = false;
 		}
-		
 
 		//Modificadores
 		void setSolution(SolucionMochila &bestSolution){_bestSolution = bestSolution;};
@@ -76,12 +74,12 @@ class localSearchKP{
 
 				if(! isBestExplorator)
 
-					actualSolution = _firstImprovementKP.explorateNeighborhood(_bestSolution);
+					actualSolution = _firstExplo.explorateNeighborhood(_bestSolution);
 
 
 				else
 
-					actualSolution = _bestImprovementKP.explorateNeighborhood(_bestSolution);
+					actualSolution = _bestExplo.explorateNeighborhood(_bestSolution);
 
 
 
@@ -95,7 +93,7 @@ class localSearchKP{
 
 																							*/
 
-				if(bestFitness == actualFitness)
+				if(_bestFitness == actualFitness)
 
 					contador++;
 

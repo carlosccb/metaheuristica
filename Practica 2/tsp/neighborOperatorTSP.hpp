@@ -19,11 +19,11 @@ class neighborOperatorTSP{
 	public:
 
 		//Constructor vacio
-		neighborOperator(){};
-		neighborOperator(vector <problem_element> &info){_info = info;};
+		neighborOperatorTSP(){};
+		neighborOperatorTSP(vector <problem_element> &info){_info = info;};
 
 		//Observadores
-		vector <problem_element> getInfo(){return _info;};
+		vector <problem_element> getInfo() const {return _info;};
 
 
 		//Sobrecarga operador igual
@@ -66,7 +66,7 @@ class neighborOperatorTSP{
 				}
 				
 				for(i = posA; i < posB; i++){
-					solucion.setSolucion(i, intercambio[i]);
+					solucion.setSolucion(i, intercambioAux[i]);
 					
 				}
 

@@ -25,8 +25,8 @@ class neighborExploratorTSP{
 	public:
 
 		//Constructores
-		neighborExplorator(){};
-		neighborExplorator(neighborOperatorTSP &operador){
+		neighborExploratorTSP(){};
+		neighborExploratorTSP(neighborOperatorTSP &operador){
 
 			_operador = operador;
 
@@ -48,7 +48,7 @@ class neighborExploratorTSP{
 		void setOperator(neighborOperatorTSP &operador){_operador = operador;};
 
 		//Observadores
-		neighborOperatorTSP getOperator(){return _operador;};
+		neighborOperatorTSP getOperator() const {return _operador;};
 };
 
 

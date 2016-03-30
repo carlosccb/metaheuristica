@@ -41,29 +41,16 @@ class SolucionViajante{
 		if(this != &s){
 
 			this->_solucion = s.getSolucion();
-			this->_fitness = s.getFitess();
+			this->_fitness = s.getFitness();
 		}
 
 	  return *this;
 
 	}
 
-	
-	//Sobrecarga del Operador ==
-	inline bool & operator==(const SolucionViajante &s){
-
-	
-		for(int i = 0; i < this->_solucion.size(); i++){
-
-			if(this->_solucion[i] != s.getSolucion(i))
-				return false;
-
-		}
-
-		return true;
-	}
 
 
+	//Funciones auxiliares
 	double distancia(const problem_element a, const problem_element b) {
 		return sqrt(pow(a.a - b.a,2) + pow(a.b - b.b,2));
 	}
@@ -80,13 +67,13 @@ class SolucionViajante{
 			sumatorio += distancia(info[ _solucion[i] ], info[ _solucion[i+1] ]);
 
 		}
-                _fintness = sumatorio;
-		return sumatorio;
+
+		_fitness = sumatorio;
 	}
 
 
 
-   inline double getFitness(){return _fitness;};
+   inline double getFitness() const {return _fitness;};
    
    inline void setFitness(double fitness){_fitness = fitness;};
      
