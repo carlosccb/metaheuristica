@@ -25,8 +25,9 @@ class localSearchKP{
 
 		neighborOperator _operador;
 
-		bestImrpovementKP * _bestExplo = NULL;
-		firstImrpovementKP * _firstExplo = NULL;
+		bestImrpovementKP _bestExplo();
+		firstImrpovementKP _firstExplo();
+		bool isBestExplorator;
 
 
 	public:
@@ -35,15 +36,17 @@ class localSearchKP{
 		localSearch(neighborOperatorKP &operador, firstImprovementKP &explorador){
 
 			_operador = operador;
-			_firstExplo = &explorador;
+			_firstExplo = explorador;
 
+			isBestExplorator = false;
 		}
 
 		localSearch(neighborOperatorKP &operador, bestImprovementKP &explorador){
 
 			_operador = operador;
-			_bestExplo = &explorador;
+			_bestExplo = explorador;
 
+			isBestExplorator = false;
 		}
 		
 
@@ -71,14 +74,14 @@ class localSearchKP{
 			while(iteraciones > 0 && contador < 2){
 
 
-				if(_firstImprovementKP != NULL)
+				if(! isBestExplorator)
 
-					actualSolution = _firstImprovementKP->explorateNeighborhood(_bestSolution);
+					actualSolution = _firstImprovementKP.explorateNeighborhood(_bestSolution);
 
 
 				else
 
-					actualSolution = _bestImprovementKP->explorateNeighborhood(_bestSolution);
+					actualSolution = _bestImprovementKP.explorateNeighborhood(_bestSolution);
 
 
 

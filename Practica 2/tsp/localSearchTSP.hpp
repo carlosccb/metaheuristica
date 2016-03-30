@@ -27,8 +27,9 @@ class localSearchTSP{
 
 		neighborOperator _operador;
 
-		bestImrpovementTSP * _bestExplo = NULL;
-		firstImrpovementTSP * _firstExplo = NULL;
+		bestImrpovementTSP _bestExplo = NULL;
+		firstImrpovementTSP _firstExplo = NULL;
+		bool isBestExplorator;
 
 
 	public:
@@ -37,15 +38,15 @@ class localSearchTSP{
 		localSearch(neighborOperatorTSP &operador, firstImprovementTSP &explorador){
 
 			_operador = operador;
-			_firstExplo = &explorador;
-
+			_firstExplo = explorador;
+			isBestExplorator = false;
 		}
 
 		localSearch(neighborOperatorTSP &operador, bestImprovementTSP &explorador){
 
 			_operador = operador;
-			_bestExplo = &explorador;
-
+			_bestExplo = explorador;
+			isBestExplorator = true;
 		}
 		
 
@@ -75,12 +76,12 @@ class localSearchTSP{
 
 				if(_firstImprovementTSP != NULL)
 
-					actualSolution = _firstImprovementTSP->explorateNeighborhood(_bestSolution);
+					actualSolution = _firstImprovementTSP.explorateNeighborhood(_bestSolution);
 
 
 				else
 
-					actualSolution = _bestImprovementTSP->explorateNeighborhood(_bestSolution);
+					actualSolution = _bestImprovementTSP.explorateNeighborhood(_bestSolution);
 				
 
 				actualFitness = actualSolution.getFitness();
