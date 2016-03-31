@@ -59,14 +59,7 @@ class neighborOperatorTSP{
 				
 			} else {
 
-				vector<int> intercambioAux;
-				int i;
-				for(i = posB; i > posA; i--){
-					intercambioAux.push_back(solucion.getSolucion(i));
-				}
-				
-				for(i = posA; i < posB; i++){
-					solucion.setSolucion(i, intercambioAux[i]);
+				solucion.reverseSolucion(posA, posB);
 					
 				}
 
