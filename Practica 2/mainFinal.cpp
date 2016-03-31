@@ -115,6 +115,7 @@ int main(int argc, char **argv) {
 			//Generamos la solucion aleatoria inicial
 			SolucionMochila initialSolution;
 			initialSolution = randomSolution.randomSolutionGenerator(info.size());
+			initialSolution.setAptitude(cli.getCapacity(), info);
 
 
 			if(cli.getOptExplo() == 1){
