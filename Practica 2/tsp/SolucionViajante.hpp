@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 #include "../lib/Miscelanea.hpp"
 
@@ -33,6 +34,12 @@ class SolucionViajante{
   void setSolucion(unsigned int pos, int valor)
    {if (pos <= _solucion.size()-1)
      _solucion[pos]=valor;}; //Para modificar un elemento de la solución
+     
+     
+  void reverseSolucion(int posA, int posB){
+  	
+  	reverse(getSolucion().begin() + posA, getSolucion().begin() + posB);
+  }
 
 
 	//Sobrecarga Operador =
