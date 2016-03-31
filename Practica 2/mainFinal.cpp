@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
 		else{
 
 
-			neighborOperatorKP operadorVecindario(info.size(), info);
+			neighborOperatorKP operadorVecindario(cli.getCapacity(), info);
 			SolGeneratorMochila randomSolution;
                         InstanceKP instance;
 
