@@ -45,7 +45,7 @@ class localSearchKP{
 			_operador = operador;
 			_bestExplo = explorador;
 
-			isBestExplorator = false;
+			isBestExplorator = true;
 		}
 
 		//Modificadores
