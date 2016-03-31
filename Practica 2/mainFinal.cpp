@@ -58,6 +58,7 @@ int main(int argc, char **argv) {
 			//Generamos la solucion aleatoria inicial
 			SolucionViajante initialSolution;
 			initialSolution = randomSolution.randomSolutionGenerator(info.size());
+                        initialSolution.setAptitude(info);
 
 
 			//Escogemos la primera mejora
