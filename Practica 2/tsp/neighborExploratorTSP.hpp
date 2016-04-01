@@ -8,6 +8,7 @@
 
 #include "SolucionViajante.hpp"
 #include "neighborOperatorTSP.hpp"
+#include <iostream>
 
 
 using namespace std;
@@ -84,7 +85,7 @@ class firstImprovementTSP: public neighborExploratorTSP{
 				for(int j = i + 1; j < getOperator().getInfo().size(); j++){
 
 
-
+                                        cout << endl << actualFitness << " " << bestFitness << endl;
 					actualSolution = getOperator().generateNeighbor(initialSolution, i, j);
 					actualFitness = actualSolution.getFitness();
 
@@ -131,6 +132,8 @@ class bestImprovementTSP: public neighborExploratorTSP{
 			bestFitness = bestSolution.getFitness();
 
 
+
+
 			for(int i = 0; i < getOperator().getInfo().size() - 1; i++){
 
 				for(int j = i + 1; j < getOperator().getInfo().size(); j++){
@@ -139,10 +142,9 @@ class bestImprovementTSP: public neighborExploratorTSP{
 
 					actualSolution = getOperator().generateNeighbor(initialSolution, i, j);
 					actualFitness = actualSolution.getFitness();
-
-
+ 
 					if(actualFitness < bestFitness){
-
+                                               
 						bestFitness = actualFitness;
 						bestSolution = actualSolution;
 					}

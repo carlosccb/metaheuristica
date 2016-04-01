@@ -61,7 +61,7 @@ class localSearchTSP{
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		void localOptimum(SolucionViajante &initialSolution, SolucionViajante &optimumSolution, double &optimumFitness){
+		int localOptimum(const SolucionViajante &initialSolution, SolucionViajante &optimumSolution, double &optimumFitness){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
@@ -71,7 +71,7 @@ class localSearchTSP{
 
 			_bestSolution = initialSolution;
 
-			while(iteraciones > 0 && contador < 2){
+			while(contador < 2){
 
 
 				if(isBestExplorator != true)
@@ -116,6 +116,9 @@ class localSearchTSP{
 			//Al ser clase, podemos hacer esto fuera de la funcion con los observadores
 			optimumSolution = _bestSolution;
 			optimumFitness = _bestFitness;
+
+
+                        return 1000-iteraciones; //para saber cuantas iteraciones hemos realizado
 		}
 
 

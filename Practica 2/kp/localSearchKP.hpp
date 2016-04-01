@@ -59,7 +59,7 @@ class localSearchKP{
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		void localOptimum(const SolucionMochila &initialSolution, SolucionMochila &optimumSolution, double &optimumFitness){
+		int localOptimum(const SolucionMochila &initialSolution, SolucionMochila &optimumSolution, double &optimumFitness){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
@@ -69,7 +69,7 @@ class localSearchKP{
 
 			_bestSolution = initialSolution;
 
-			while(iteraciones > 0 && contador < 2){
+			while(contador < 2){
 
 
 				if(! isBestExplorator)
@@ -115,6 +115,8 @@ class localSearchKP{
 			//Al ser clase, podemos hacer esto fuera de la funcion con los observadores
 			optimumSolution = _bestSolution;
 			optimumFitness = _bestFitness;
+
+                        return 1000-iteraciones; //para saber cuantas iteraciones hemos realizado
 		}
 
 

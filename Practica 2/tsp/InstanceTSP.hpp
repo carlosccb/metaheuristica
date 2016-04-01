@@ -49,13 +49,13 @@ class InstanceTSP : public Instance {
 
 
 		//Funcion que almacena en un fichero una serie de datos de salida del programa
-		void saveResults(const double &best_fitness, const SolucionViajante &best_solution){
+	      void saveResults(const SolucionViajante &inicial, const double &best_fitness, const SolucionViajante &best_solution, double tiempo, int iteraciones = 0){
 
 
 		  int id = 1;	//Identificador del numero de ejecucion del programa
 		  string line;
 
-		  ifstream fr("TSP_onlyFitness.txt");
+		  ifstream fr("TSP_Fitness&Time.txt");
 			
 			//Contamos cual ejecucion del programa es esta
 			if(fr.is_open()){
@@ -74,19 +74,27 @@ class InstanceTSP : public Instance {
 
 			//Escribimos los resultados de esta ejecucion
 			fs << "Ejecución " << id << ":" << endl;
-                        for (int i = 0; i < best_solution.getSolucion().size(); i++){
-                             fs << best_solution.getSolucion(i) << "-> ";
+                        for (int i = 0; i < inicial.getSolucion().size(); i++){
+                             fs << inicial.getSolucion(i);
+                              if (i != inicial.getSolucion().size() -1) fs << "-> ";
                           }
+                        fs << endl << endl;
+                        for (int i = 0; i < best_solution.getSolucion().size(); i++){
+                             fs << best_solution.getSolucion(i);
+                               if (i != best_solution.getSolucion().size() -1) fs << "-> ";
+                          }
+                          
 
 
 
-                        fs << endl << "Fitness: " << best_fitness << "\n" << "\n" << "\n" << "\n";
+                        fs << endl << "Fitness inicial: " << inicial.getFitness() << " Fitness mejora: " << best_fitness  << "\t" << "Tiempo de ejecución: " << tiempo << "\n" << "\n" << "\n" << "\n";
 
 			fs.close();
 
 
-		  fs.open("TSP_onlyFitness.txt", std::ofstream::app);
-                  fs << id << " " << best_fitness << endl;
+		  fs.open("TSP_Fitness&Time.txt", std::ofstream::app);
+                  if (id != 1) fs << endl;
+                  fs << id << " " << inicial.getFitness() << " " << best_fitness << " " << tiempo << " " << iteraciones;
                   fs.close();
                   
 

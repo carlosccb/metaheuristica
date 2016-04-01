@@ -34,6 +34,8 @@ int main(int argc, char **argv) {
 	int i;
 	int veces;
 	srand(time(NULL));
+        double tiempo;
+        int iteraciones;
 
 
 	//Siempre se ejcuta hasta que el usuario quiera salir
@@ -73,9 +75,10 @@ int main(int argc, char **argv) {
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
-                      instance.saveResults(localOptimumFitness, localOptimumSolution);
-                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
+				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
+                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+                      instance.saveResults(initialSolution, localOptimumFitness, localOptimumSolution, tiempo, iteraciones);
+                         cout << "Tiempo de ejecucion: " << tiempo << endl;
 			}
 
 
@@ -90,9 +93,10 @@ int main(int argc, char **argv) {
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
-                      instance.saveResults(localOptimumFitness, localOptimumSolution);
-                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
+				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
+                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+                      instance.saveResults(initialSolution, localOptimumFitness, localOptimumSolution, tiempo, iteraciones);
+                         cout << "Tiempo de ejecucion: " << tiempo << endl;
 
 			}
 
@@ -130,9 +134,10 @@ int main(int argc, char **argv) {
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
-                      instance.saveResults(localOptimumFitness, localOptimumSolution);
-                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
+				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
+                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+                      instance.saveResults(initialSolution, localOptimumFitness, localOptimumSolution, tiempo, iteraciones);
+                         cout << "Tiempo de ejecucion: " << tiempo << endl;
 			}
 
 
@@ -147,9 +152,10 @@ int main(int argc, char **argv) {
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
 				//Ejecutamos la busqueda local
-				busquedaLocal.localOptimum(initialSolution, localOptimumSolution2, localOptimumFitness2);
-                      instance.saveResults(localOptimumFitness2, localOptimumSolution2);
-                         cout << "Tiempo de ejecucion: " << ((double) (clock() - time)/CLOCKS_PER_SEC) << endl;
+				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution2, localOptimumFitness2);
+                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+                      instance.saveResults(initialSolution, localOptimumFitness2, localOptimumSolution2, tiempo, iteraciones);
+                         cout << "Tiempo de ejecucion: " << tiempo << endl;
 
 			}
 
