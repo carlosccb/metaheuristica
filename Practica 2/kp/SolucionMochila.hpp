@@ -161,10 +161,10 @@ class SolucionMochila{
         	int beneficio = info[n].a;
         	
         	if (getSolucion(n)){ //si lo metemos
-        		if (getSumaPeso() >= KPsize){//si nos pasabamos
+        		if (getSumaPeso() > KPsize){//si nos pasabamos
         			setFitness(getFitness() + beneficio);
         			setSumaPeso(getSumaPeso() + peso);
-        		} else if (getSumaPeso() + peso >= KPsize){ //sino nos pasabamos y ahora si
+        		} else if (getSumaPeso() + peso > KPsize){ //sino nos pasabamos y ahora si
         			setSumaPeso(getSumaPeso() + peso);
         			setFitness(getFitness() + beneficio - beneficioMaximo(info));
         			
@@ -174,7 +174,7 @@ class SolucionMochila{
         		 }
         		
         	} else {//si lo quitamos
-        		if (getSumaPeso() >= KPsize){//si nos pasabamos
+        		if (getSumaPeso() > KPsize){//si nos pasabamos
         			if ((getSumaPeso() - peso >= KPsize)){//si ahora nos seguimos pasando
         				setFitness(getFitness() - beneficio);
         				setSumaPeso(getSumaPeso() - peso);
