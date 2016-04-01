@@ -38,7 +38,7 @@ class SolucionViajante{
      
   void reverseSolucion(int posA, int posB){
   	
-  	reverse(getSolucion().begin() + posA, getSolucion().begin() + posB);
+  	reverse(_solucion.begin() + posA, _solucion.begin() + posB);
   }
 
 
