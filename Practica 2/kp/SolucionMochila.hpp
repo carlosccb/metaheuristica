@@ -146,11 +146,9 @@ class SolucionMochila{
 
 
 		else{
+                      _fitness = KPSize - totalSize;
 
-			double beneSol = beneficioSolucion(info);
-			double beneMax = beneficioMaximo(info);
 
-			_fitness = (beneSol - beneMax);
 		}
 
 	}
@@ -162,11 +160,11 @@ class SolucionMochila{
         	
         	if (getSolucion(n)){ //si lo metemos
         		if (getSumaPeso() > KPsize){//si nos pasabamos
-        			setFitness(getFitness() + beneficio);
+        			setFitness(getFitness() - peso);
         			setSumaPeso(getSumaPeso() + peso);
         		} else if (getSumaPeso() + peso > KPsize){ //sino nos pasabamos y ahora si
         			setSumaPeso(getSumaPeso() + peso);
-        			setFitness(getFitness() + beneficio - beneficioMaximo(info));
+        			setFitness(getFitness() - getFitness() + KPsize - getSumaPeso());
         			
         		 }else{ //si no nos pasamos
         		        setFitness(getFitness() + beneficio);
@@ -174,29 +172,25 @@ class SolucionMochila{
         		 }
         		
         	} else {//si lo quitamos
-        		if (getSumaPeso() > KPsize){//si nos pasabamos
-        			if ((getSumaPeso() - peso >= KPsize)){//si ahora nos seguimos pasando
-        				setFitness(getFitness() - beneficio);
+        		if (getSumaPeso() >= KPsize){//si nos pasabamos
+        			if ((getSumaPeso() - peso > KPsize)){//si ahora nos seguimos pasando
+        				setFitness(getFitness() + peso);
         				setSumaPeso(getSumaPeso() - peso);
         			}else{ //si ahora no nos pasamos
-        				setFitness(getFitness() + beneficioMaximo(info) - beneficio);
         				setSumaPeso(getSumaPeso() - peso);
+        				setFitness(getFitness() - getFitness() + beneficioSolucion(info));
         			}
         		}else{ //no nos pasabamos
         			setFitness(getFitness() - beneficio);
         		        setSumaPeso(getSumaPeso() - peso);
         		}
-        		
-        		
-        		
-        		
+	
         	}
-        	
-        	
-        	
-        	
-        	
+	
         }
+
+
+
   //Constructor
   SolucionMochila(int objetos=0){
    int i;
