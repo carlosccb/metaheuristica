@@ -1,0 +1,18 @@
+sumaPeso
+sumaProfits
+Fitness
+mochila.capacidad
+
+
+if (sumaPeso <= mochila.capacidad){
+
+fitness = sumaProfits;
+
+
+
+}else {
+
+fitness = mochila.capacidad - sumaPeso;
+
+
+}
