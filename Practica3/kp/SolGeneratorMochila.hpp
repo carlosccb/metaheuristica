@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 
 #include "../lib/Miscelanea.hpp"
 
@@ -55,6 +56,18 @@ class SolGeneratorMochila{
 
 			return solucion;
 		}
+		
+		
+		
+	        SolucionMochila generarGreedyRandom(vector<problem_element> &info, int Size, objetos){
+		        SolucionMochila solucion(objetos);
+		        vector<int> elementos;
+		        
+		
+		
+		
+		
+	         }
 };
 
 
