@@ -32,7 +32,12 @@ class SolGeneratorViajante{
 				solucion.setSolucion(i, i);
 
 			for(unsigned int i = 0; i < objetos; i++)
-				 solucion.setSolucion(rand()%objetos, i);
+				 solucion.reverseSolucion(i, rand()%objetos);
+
+                        solucion.reverseSolucion(0, solucion.getSolucion().size());
+
+			for(unsigned int i = 0; i < objetos; i++)
+				 solucion.reverseSolucion(i, rand()%objetos);
 
 			return solucion;
 		}
