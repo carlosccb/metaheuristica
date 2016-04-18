@@ -85,7 +85,7 @@ class coolingExploratorTSP{
 
 
 			//La constante de enfriamiento geometrica debe estar entre 0.5 y 0.99
-			_temperature = 0.7 * _temperature;
+			_temperature = 0.99 * _temperature;
 		}
 
 
@@ -130,34 +130,28 @@ class coolingExploratorTSP{
 			for(unsigned int k = 0; k < 100000; k++){
 
 
-				//Numero de vecinos a explorar por cada valor de temperatura
-				unsigned int i = 0;
-//				while(i < (initialSolution.getSolution().size() / 2)){ 		//Solo una iteracion
+
+				int pos1 = random() % initialSolution.getSolution().size();
+				int pos2 = random() % initialSolution.getSolution().size();
+				newSolution = getOperator().generateNeighbor(actualSolution, pos1, pos2);
+				newFitness = newSolution.getFitness();
 
 
-					int pos1 = random() % initialSolution.getSolution().size();
-					int pos2 = random() % initialSolution.getSolution().size();
-					newSolution = getOperator().generateNeighbor(actualSolution, pos1, pos2);
-					newFitness = newSolution.getFitness();
+				//Si la solucion generada es mejor, la guardamos
+				if(newFitness < bestFitness){
+
+					bestSolution = newSolution;
+					bestFitness = newFitness;
+				}
 
 
-					//Si la solucion generada es mejor, la guardamos
-					if(newFitness < bestFitness){
+				//Vemos si aceptamos o no la nueva solucion para generar vecinos a partir de ella
+				if(accept(actualFitness, newFitness)){
 
-						bestSolution = newSolution;
-						bestFitness = newFitness;
-					}
+					actualSolution = newSolution;
+					actualFitness = newFitness;
+				}
 
-
-					//Vemos si aceptamos o no la nueva solucion para generar vecinos a partir de ella
-					if(accept(actualFitness, newFitness)){
-
-						actualSolution = newSolution;
-						actualFitness = newFitness;
-					}
-
-
-//				}
 
 				coolingDown();	//Descendemos la temperatura
 
