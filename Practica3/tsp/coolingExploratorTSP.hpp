@@ -62,6 +62,23 @@ class coolingExploratorTSP{
 
 			//Cual es la temperatura inicial ???
 
+
+
+			/*
+
+
+				Generar 5 soluciones aleatorias y 1 vecino para cada una de esas soluciones
+
+				Calcular las diferencias de fitness entre cada una con su vecino y calcular la media de las diferencias
+
+				calcularemos la temperatura inicial con la siguiente funcion:
+
+					Tinicial = - media incremento / logaritmo P0
+
+					---> P0 = probabilidad de aceptacion inicial = 0.9 (emepzar con esa)
+
+			*/
+
 		}
 
 		void coolingDown(){
@@ -115,7 +132,7 @@ class coolingExploratorTSP{
 
 				//Numero de vecinos a explorar por cada valor de temperatura
 				unsigned int i = 0;
-				while(i < (initialSolution.getSolution().size() / 2)){
+//				while(i < (initialSolution.getSolution().size() / 2)){ 		//Solo una iteracion
 
 
 					int pos1 = random() % initialSolution.getSolution().size();
@@ -140,7 +157,7 @@ class coolingExploratorTSP{
 					}
 
 
-				}
+//				}
 
 				coolingDown();	//Descendemos la temperatura
 
