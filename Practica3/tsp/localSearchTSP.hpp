@@ -35,6 +35,7 @@ class localSearchTSP{
 	public:
 
 		//Constructores
+		localSearchTSP(){};
 		localSearchTSP(neighborOperatorTSP &operador, firstImprovementTSP &explorador){
 
 			_operador = operador;
@@ -48,6 +49,23 @@ class localSearchTSP{
 			_bestExplo = explorador;
 			isBestExplorator = true;
 		}
+
+
+		//Sobrecarga operador igual
+		localSearchTSP & operator=(const localSearchTSP &s){
+
+			if(this != &s){
+
+				this->_operador = s.getOperator();
+				this->_bestSolution = s.getSolution();
+				this->_bestExplo = s.getExploratorBest();
+				this->_firstExplo = s.getExploratorFirst();
+
+				this->isBestExplorator = s.exploratorType();
+			}
+
+		  return *this;
+		};
 		
 
 		//Modificadores
@@ -57,6 +75,10 @@ class localSearchTSP{
 		//Observadores
 		SolucionViajante getSolution(){return _bestSolution;};
 		neighborOperatorTSP getOperator(){return _operador;};
+
+		bestImprovementTSP getExploratorBest(){return _bestExplo;}
+		firstImprovementTSP getExploratorFirst(){return _firstExplo;}
+		bool exploratorType(){return isBestExplorator;}
 
 
 
