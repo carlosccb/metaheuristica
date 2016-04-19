@@ -93,12 +93,12 @@ class coolingExploratorTSP{
 				double fitness2 = vecino.getFitness();
 
 
-				media += fitness2 - fitness1;
+				media += fabs(fitness2 - fitness1);
 
 			}
 
 			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
-
+			double Tinicial = (-media) / log(0.9);
 
 
 		}
@@ -183,11 +183,6 @@ class coolingExploratorTSP{
 			return bestSolution;
 
 		}
-
-
-
-
-
 
 
 };
