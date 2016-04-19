@@ -57,11 +57,35 @@ class coolingExploratorKP{
 
 		//Funciones pequeñas
 
-		void temperatureRestart(){
+		void temperatureRestart(const vector <problem_element> &info, const int &size){
 
 
-			//Cual es la temperatura inicial ???
 
+		  double media = 0.0;
+		  SolGeneratorMochila solGenerator;
+
+			for(unsigned int i = 0; i < 5; i++){
+
+
+				int pos1 = random() % size;
+				int pos2 = random() % size;
+
+				SolucionMochila original = solGenerator(size);
+				original.setAptitude(info);
+				double fitness1 = original.getFitness();
+
+				SolucionMochila vecino = getOperator().generateNeighbor(original, pos1, pos2);
+				double fitness2 = vecino.getFitness();
+
+
+				media += fabs(fitness2 - fitness1);
+
+			}
+
+			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
+			double Tinicial = (-media) / log(0.9);
+
+		  return Tinicial;
 		}
 
 		void coolingDown(){
@@ -97,10 +121,10 @@ class coolingExploratorKP{
 
 		//Funciones tochas
 
-		SolucionMochila enfriamientoSimuladoKP(Solucion Mochila &initialSolution){
+		SolucionMochila enfriamientoSimuladoKP(const vector <problem_element> &info, Solucion Mochila &initialSolution){
 
 
-			temperatureRestart();
+			temperatureRestart(info, initialSolution.getSolution.size());
 
 		  double actualFitness, newfitness, bestFitness;
 		  SolucionMochila bestSolution, actualSolution, newSolution;

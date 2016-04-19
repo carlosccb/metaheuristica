@@ -100,7 +100,7 @@ class coolingExploratorTSP{
 			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
 			double Tinicial = (-media) / log(0.9);
 
-
+		  return Tinicial;
 		}
 
 		void coolingDown(){
@@ -139,7 +139,7 @@ class coolingExploratorTSP{
 		SolucionViajante enfriamientoSimuladoTSP(const vector <problem_element> &info, const Solucion Viajante &initialSolution){
 
 
-			temperatureRestart();
+			temperatureRestart(info, initialSolution.getSolution.size());
 
 		  double actualFitness, newfitness, bestFitness;
 		  SolucionViajante bestSolution, actualSolution, newSolution;
