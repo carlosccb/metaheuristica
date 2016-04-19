@@ -10,13 +10,9 @@ endif
 
 DEBUG = -g
 
-Practica1:
-	$(CC) -o main main.cpp $(FLAGS)
 
-debug:
-	$(CC) -o main main.cpp $(FLAGS) $(DEBUG)
-Practica2:
-	$(CC) -o main2 mainFinal.cpp $(FLAGS)
+Practica3:
+	$(CC) -o mainFinal mainFinal.cpp $(FLAGS)
 
 clean:
-	rm main
+	rm mainFinal
