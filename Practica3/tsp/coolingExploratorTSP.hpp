@@ -9,6 +9,7 @@
 #include "../lib/Miscelanea.hpp"
 
 #include "SolucionViajante.hpp"
+#include "SolGeneratorViajante.hpp"
 #include "neighborOperatorTSP.hpp"
 #include <iostream>
 
@@ -57,12 +58,7 @@ class coolingExploratorTSP{
 
 		//Funciones pequeñas
 
-		void temperatureRestart(){
-
-
-			//Cual es la temperatura inicial ???
-
-
+		double temperatureRestart(const vector <problem_element> &info, const int &size){
 
 			/*
 
@@ -78,6 +74,32 @@ class coolingExploratorTSP{
 					---> P0 = probabilidad de aceptacion inicial = 0.9 (emepzar con esa)
 
 			*/
+
+
+		  double media = 0.0;
+		  SolGeneratorViajante solGenerator;
+
+			for(unsigned int i = 0; i < 5; i++){
+
+
+				int pos1 = random() % size;
+				int pos2 = random() % size;
+
+				SolucionViajante original = solGenerator(size);
+				original.setAptitude(info);
+				double fitness1 = original.getFitness();
+
+				SolucionViajante vecino = getOperator().generateNeighbor(original, pos1, pos2);
+				double fitness2 = vecino.getFitness();
+
+
+				media += fitness2 - fitness1;
+
+			}
+
+			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
+
+
 
 		}
 
@@ -114,7 +136,7 @@ class coolingExploratorTSP{
 
 		//Funciones tochas
 
-		SolucionViajante enfriamientoSimuladoTSP(Solucion Viajante &initialSolution){
+		SolucionViajante enfriamientoSimuladoTSP(const vector <problem_element> &info, const Solucion Viajante &initialSolution){
 
 
 			temperatureRestart();
