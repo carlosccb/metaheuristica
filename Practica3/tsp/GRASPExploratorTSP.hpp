@@ -180,6 +180,7 @@ class GRASPExploratorTSP{
 
 
 			s.setSolucion(solucionFinal);
+			s.setAptitude(info);
 
 		  return s;
 		}
@@ -187,16 +188,27 @@ class GRASPExploratorTSP{
 
 
 
+		SolucionViajante GRASP(const vector <problem_element> &info){
 
 
+			SolucionViajante actualSolution, currentSolution, bestSolution = greedyConstructor(info);
+			double actualFitness, bestFitness = bestSolution.getFitness();
 
 
+			for(int i = 0; i < 100000; i++){
 
 
+				currentSolution = greedyConstructor(info);
+				_busquedaLocal.localOptimum(currentSolution, actualSolution, actualFitness);
 
+				if(actualFitness < bestFitness){
 
+					bestSolution = actualSolution;
+					bestFitness = actualFitness;
+				}				
+			}
 
-
-
+		  return bestSolution;
+		}
 
 };
