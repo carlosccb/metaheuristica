@@ -64,6 +64,21 @@ class GRASPExploratorTSP{
 		  return false;
 		}
 
+		int posicionElemento(const vector <int> &v, const int &num){
+
+
+			for(int i = 0; i < v.size(), i++){
+
+				if(v[i] == num)
+					return true;
+			}
+
+		  return false;
+
+
+
+		}
+
 
 		int mejorCandidato(const vector <problem_element> &info, const vector <int> &candidatos, const int &ciudadActual){
 
@@ -127,9 +142,9 @@ class GRASPExploratorTSP{
 
 
 
-			int numAux;
+			SolucionViajante s;
 			vector <int> aux, aux2, solucionFinal;
-
+			int numAux;
 
 			for(int i = 0; i < info.size(); i++)
 				aux.push_back(i);	//Vector con las posiciones por añadir aun
@@ -160,11 +175,14 @@ class GRASPExploratorTSP{
 				solucionFinal.push_back( aux2[posMejor] );
 
 
+				aux.erase( aux.begin() + posicionElemento(aux, aux2[posMejor]) );
+				aux2.clear();
 			}
 
 
+			s.setSolucion(solucionFinal);
 
-		  return solucionFinal;
+		  return s;
 		}
 
 
