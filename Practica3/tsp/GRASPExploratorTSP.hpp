@@ -51,6 +51,40 @@ class GRASPExploratorTSP{
 		}
 
 
+		//Funcion que busca si esta presente un valor dentro de un vector de enteros
+		bool buscaElemento(const vector <int> &v, const int &num){
+
+
+			for(int i = 0; i < v.size(), i++){
+
+				if(v[i] == num)
+					return true;
+			}
+
+		  return false;
+		}
+
+
+		int mejorCandidato(const vector <problem_element> &info, const vector <int> &candidatos, const int &ciudadActual){
+
+
+			int posMejor = 0;
+			double distMejor = distancia( info[ ciudadActual ], info[ candidatos[0] ] );
+
+			for(int i = 1; i < candidatos.size(); i++){
+
+
+				double distActual = distancia( info[ ciudadActual ], info[ candidatos[i] ] );
+				if( distActual < distMejor ){
+
+					posMejor = i;
+					distMejor = distActual;
+				}
+			}
+
+		  return posMejor;
+		}
+
 		
 		SolucionViajante greedyConstructor(const vector <problem_element> &info){
 
@@ -102,8 +136,8 @@ class GRASPExploratorTSP{
 
 
 			//Obtenemos de forma aleatoria el primer elemento de la solucion
-			numAux = rand() % info.size();
-			solucionFinal.push_back(numAux);
+			numAux = rand() % aux.size();
+			solucionFinal.push_back(aux[numAux]);
 			aux.erase(aux.begin()+numAux);
 
 
@@ -111,14 +145,20 @@ class GRASPExploratorTSP{
 			while(aux.size() > 0){
 
 
-				while(aux2.size() < 10){	//Escogemos 10 elementos de los aun no escogidos
+				while(aux2.size() < 10){	//Creamos una lista con 10 elementos aun no escogidos
 
-					numAux = rand() % info.size();
-					for(int i = 0; i < aux2.size(); i++){
 
-						if(aux2.size())
-					}
+					do{
+
+						numAux = rand() % aux.size();
+
+					} while(! buscaElemento(aux2, aux[numAux]));
+					aux2.push_back(aux[numAux]);		//Introducimos en la lista de candidatos un numero aleatorio que aun no este en la lista
 				}
+
+				int posMejor = mejorCandidato(info, aux2, solucionFinal[ solucionFinal.size() - 1 ]);
+				solucionFinal.push_back( aux2[posMejor] );
+
 
 			}
 
