@@ -70,11 +70,10 @@ class GRASPExploratorTSP{
 			for(int i = 0; i < v.size(), i++){
 
 				if(v[i] == num)
-					return true;
+					return i;
 			}
 
-		  return false;
-
+		  cout << endl << "No se ha encontrado el numero en el vector (GRASPConstructor TSP)" << endl << endl;
 
 
 		}
