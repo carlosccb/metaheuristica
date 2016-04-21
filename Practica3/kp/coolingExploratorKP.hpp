@@ -134,34 +134,28 @@ class coolingExploratorKP{
 
 			for(unsigned int k = 0; k < 100000; k++){
 
+				cout << "Iteracion: " << k << endl;
 
-				//Numero de vecinos a explorar por cada valor de temperatura
-				unsigned int i = 0;
-				while(i < (initialSolution.getSolucion().size() / 2)){
-
-
-					int pos1 = random() % initialSolution.getSolucion().size();
-					newSolution = getOperator().generateNeighbor(actualSolution, pos1);
-					newFitness = newSolution.getFitness();
+				int pos1 = random() % initialSolution.getSolucion().size();
+				newSolution = getOperator().generateNeighbor(actualSolution, pos1);
+				newFitness = newSolution.getFitness();
 
 
-					//Si la solucion generada es mejor, la guardamos
-					if(newFitness > bestFitness){
+				//Si la solucion generada es mejor, la guardamos
+				if(newFitness > bestFitness){
 
-						bestSolution = newSolution;
-						bestFitness = newFitness;
-					}
-
-
-					//Vemos si aceptamos o no la nueva solucion para generar vecinos a partir de ella
-					if(accept(actualFitness, newFitness)){
-
-						actualSolution = newSolution;
-						actualFitness = newFitness;
-					}
-
-
+					bestSolution = newSolution;
+					bestFitness = newFitness;
 				}
+
+
+				//Vemos si aceptamos o no la nueva solucion para generar vecinos a partir de ella
+				if(accept(actualFitness, newFitness)){
+
+					actualSolution = newSolution;
+					actualFitness = newFitness;
+				}
+
 
 				coolingDown();	//Descendemos la temperatura
 
