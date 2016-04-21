@@ -32,6 +32,7 @@ class localSearchKP{
 	public:
 
 		//Constructores
+		localSearchKP(){};
 		localSearchKP(neighborOperatorKP &operador, firstImprovementKP &explorador){
 
 			_operador = operador;
@@ -48,14 +49,36 @@ class localSearchKP{
 			isBestExplorator = true;
 		}
 
+
+		//Sobrecarga operador igual
+		localSearchKP & operator=(const localSearchKP &s){
+
+			if(this != &s){
+
+				this->_operador = s.getOperator();
+				this->_bestSolution = s.getSolution();
+				this->_bestExplo = s.getExploratorBest();
+				this->_firstExplo = s.getExploratorFirst();
+
+				this->isBestExplorator = s.exploratorType();
+			}
+
+		  return *this;
+		};
+
+
+
 		//Modificadores
 		void setSolution(SolucionMochila &bestSolution){_bestSolution = bestSolution;};
 
 
 		//Observadores
-		SolucionMochila getSolution(){return _bestSolution;};
-		neighborOperatorKP getOperator(){return _operador;};
+		SolucionMochila getSolution() const {return _bestSolution;};
+		neighborOperatorKP getOperator() const {return _operador;};
 
+		bestImprovementKP getExploratorBest() const {return _bestExplo;}
+		firstImprovementKP getExploratorFirst() const {return _firstExplo;}
+		bool exploratorType() const {return isBestExplorator;}
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?

@@ -57,17 +57,7 @@ class SolGeneratorMochila{
 			return solucion;
 		}
 		
-		
-		
-	        SolucionMochila generarGreedyRandom(vector<problem_element> &info, int Size, objetos){
-		        SolucionMochila solucion(objetos);
-		        vector<int> elementos;
-		        
-		
-		
-		
-		
-	         }
+
 };
 
 

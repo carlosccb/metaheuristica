@@ -28,8 +28,6 @@ class GRASPExploratorKP{
 
 	private:
 
-		neighborOperatorKP _operador;
-		firstImprovementKP _explorador;
 		localSearchKP _busquedaLocal;
 
 
@@ -37,11 +35,9 @@ class GRASPExploratorKP{
 
 
 		GRASPExploratorKP(){};
-		GRASPExploratorKP(localSearchKP &busquedaLocal, firstImprovementKP &explorador, neighborOperatorKP &operador){
+		GRASPExploratorKP(localSearchKP &busquedaLocal){
 
 			_busquedaLocal = busquedaLocal;
-			_explorador = explorador;
-			_operador = operador;
 		}
 
 
@@ -127,7 +123,7 @@ class GRASPExploratorKP{
 					aux.push_back(numAux);		//Introducimos en la lista de candidatos un elemento aleatorio que aun no este en la lista
 				}
 
-				int mejorPos = mejorCandidato(info, aux);
+				int posMejor = mejorCandidato(info, aux);
 				solucionFinal.setSolucion(posMejor, true);
 
 				aux.clear();
@@ -168,3 +164,6 @@ class GRASPExploratorKP{
 
 
 };
+
+
+#endif

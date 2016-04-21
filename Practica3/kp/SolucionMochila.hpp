@@ -62,7 +62,7 @@ class SolucionMochila{
 
 
 	//Sumatorio del peso de la solucion actual
-	double pesoSolucion(vector <problem_element> &info){
+	double pesoSolucion(const vector <problem_element> &info){
 
 		if(_solucion.size() != info.size()){
 
@@ -86,7 +86,7 @@ class SolucionMochila{
 
 
 	//Sumatorio del beneficio de la solucion actual
-	double beneficioSolucion(vector <problem_element> &info){
+	double beneficioSolucion(const vector <problem_element> &info){
 
 		if(_solucion.size() != info.size()){
 
@@ -113,7 +113,7 @@ class SolucionMochila{
 
 
 	//Sumatorio del beneficio de todos los elementos de la instancia
-	double beneficioMaximo(vector <problem_element> &info){
+	double beneficioMaximo(const vector <problem_element> &info){
 
 		if(_solucion.size() != info.size()){
 
@@ -135,7 +135,7 @@ class SolucionMochila{
 
 
 	//Funcion que devuelve la bondad de una solucion
-	void setAptitude(const int &KPSize, vector <problem_element> &info){
+	void setAptitude(const int &KPSize, const vector <problem_element> &info){
 
 
 		double totalSize = pesoSolucion(info);	//Peso de los elementos escogidos

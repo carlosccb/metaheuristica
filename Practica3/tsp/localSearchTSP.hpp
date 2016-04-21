@@ -73,12 +73,12 @@ class localSearchTSP{
 
 
 		//Observadores
-		SolucionViajante getSolution(){return _bestSolution;};
-		neighborOperatorTSP getOperator(){return _operador;};
+		SolucionViajante getSolution() const {return _bestSolution;};
+		neighborOperatorTSP getOperator() const {return _operador;};
 
-		bestImprovementTSP getExploratorBest(){return _bestExplo;}
-		firstImprovementTSP getExploratorFirst(){return _firstExplo;}
-		bool exploratorType(){return isBestExplorator;}
+		bestImprovementTSP getExploratorBest() const {return _bestExplo;}
+		firstImprovementTSP getExploratorFirst() const {return _firstExplo;}
+		bool exploratorType() const {return isBestExplorator;}
 
 
 

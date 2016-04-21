@@ -57,7 +57,7 @@ class coolingExploratorKP{
 
 		//Funciones pequeñas
 
-		void temperatureRestart(const vector <problem_element> &info, const int &size){
+		void temperatureRestart(const vector <problem_element> &info){
 
 
 
@@ -67,14 +67,13 @@ class coolingExploratorKP{
 			for(unsigned int i = 0; i < 5; i++){
 
 
-				int pos1 = random() % size;
-				int pos2 = random() % size;
+				int pos1 = random() % info.size();
 
-				SolucionMochila original = solGenerator(size);
-				original.setAptitude(info);
+				SolucionMochila original = solGenerator.randomSolutionGenerator(info.size());
+				original.setAptitude(_operador.getKPSize(), info);
 				double fitness1 = original.getFitness();
 
-				SolucionMochila vecino = getOperator().generateNeighbor(original, pos1, pos2);
+				SolucionMochila vecino = getOperator().generateNeighbor(original, pos1);
 				double fitness2 = vecino.getFitness();
 
 
@@ -83,9 +82,8 @@ class coolingExploratorKP{
 			}
 
 			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
-			double Tinicial = (-media) / log(0.9);
+			_temperature = (-media) / log(0.9);
 
-		  return Tinicial;
 		}
 
 		void coolingDown(){
@@ -121,12 +119,12 @@ class coolingExploratorKP{
 
 		//Funciones tochas
 
-		SolucionMochila enfriamientoSimuladoKP(const vector <problem_element> &info, Solucion Mochila &initialSolution){
+		SolucionMochila enfriamientoSimuladoKP(const vector <problem_element> &info, SolucionMochila &initialSolution){
 
 
-			temperatureRestart(info, initialSolution.getSolution.size());
+			temperatureRestart(info);
 
-		  double actualFitness, newfitness, bestFitness;
+		  double actualFitness, newFitness, bestFitness;
 		  SolucionMochila bestSolution, actualSolution, newSolution;
 
 
@@ -139,12 +137,11 @@ class coolingExploratorKP{
 
 				//Numero de vecinos a explorar por cada valor de temperatura
 				unsigned int i = 0;
-				while(i < (initialSolution.getSolution().size() / 2)){
+				while(i < (initialSolution.getSolucion().size() / 2)){
 
 
-					int pos1 = random() % initialSolution.getSolution().size();
-					int pos2 = random() % initialSolution.getSolution().size();
-					newSolution = getOperator().generateNeighbor(actualSolution, pos1, pos2);
+					int pos1 = random() % initialSolution.getSolucion().size();
+					newSolution = getOperator().generateNeighbor(actualSolution, pos1);
 					newFitness = newSolution.getFitness();
 
 

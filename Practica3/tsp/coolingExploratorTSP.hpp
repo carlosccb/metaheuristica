@@ -58,7 +58,7 @@ class coolingExploratorTSP{
 
 		//Funciones pequeñas
 
-		double temperatureRestart(const vector <problem_element> &info){
+		double temperatureRestart(vector <problem_element> &info){
 
 			/*
 
@@ -85,7 +85,7 @@ class coolingExploratorTSP{
 				int pos1 = random() % info.size();
 				int pos2 = random() % info.size();
 
-				SolucionViajante original = solGenerator(info.size());
+				SolucionViajante original = solGenerator.randomSolutionGenerator(info.size());
 				original.setAptitude(info);
 				double fitness1 = original.getFitness();
 
@@ -98,9 +98,8 @@ class coolingExploratorTSP{
 			}
 
 			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
-			double Tinicial = (-media) / log(0.9);
+			_temperature = (-media) / log(0.9);
 
-		  return Tinicial;
 		}
 
 		void coolingDown(){
@@ -136,12 +135,12 @@ class coolingExploratorTSP{
 
 		//Funciones tochas
 
-		SolucionViajante enfriamientoSimuladoTSP(const vector <problem_element> &info, const Solucion Viajante &initialSolution){
+		SolucionViajante enfriamientoSimuladoTSP(vector <problem_element> &info, const SolucionViajante &initialSolution){
 
 
 			temperatureRestart(info);
 
-		  double actualFitness, newfitness, bestFitness;
+		  double actualFitness, newFitness, bestFitness;
 		  SolucionViajante bestSolution, actualSolution, newSolution;
 
 
@@ -153,8 +152,8 @@ class coolingExploratorTSP{
 
 
 
-				int pos1 = random() % initialSolution.getSolution().size();
-				int pos2 = random() % initialSolution.getSolution().size();
+				int pos1 = random() % initialSolution.getSolucion().size();
+				int pos2 = random() % initialSolution.getSolucion().size();
 				newSolution = getOperator().generateNeighbor(actualSolution, pos1, pos2);
 				newFitness = newSolution.getFitness();
 

@@ -83,7 +83,6 @@ class SolucionViajante{
    
    inline void setFitness(double fitness){_fitness = fitness;};
      
-  SolucionViajante(){};
   SolucionViajante(unsigned int objetos=0){
     for (unsigned int i=0; i< objetos; i++)
     _solucion.push_back(i);

@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 
 
 
-			neighborOperatorKP operadorVecindario(info);
+			neighborOperatorKP operadorVecindario(info, cli.getCapacity());
 			InstanceKP instance;
 
 
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 
 
 					initialSolution = randomSolution.randomSolutionGenerator(info.size());
-					initialSolution.setAptitude(info);
+					initialSolution.setAptitude(info, cli.getCapacity());
 
 					finalSolution = notFrozen.enfriamientoSimuladoKP(info, initialSolution);
 
