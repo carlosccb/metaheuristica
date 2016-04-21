@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
 				for(int i = 0; i < 50; i++){
 
 
-					initialSolution = randomSolutionrandom.SolutionGenerator(info.size());
+					initialSolution = randomSolution.randomSolutionGenerator(info.size());
 					initialSolution.setAptitude(info);
 
 					finalSolution = notFrozen.enfriamientoSimuladoTSP(info, initialSolution);
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 
 
 
-			neighborOperatorKP operadorVecindario(info, cli.getCapacity());
+			neighborOperatorKP operadorVecindario(cli.getCapacity(), info);
 			InstanceKP instance;
 
 
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 
 
 					initialSolution = randomSolution.randomSolutionGenerator(info.size());
-					initialSolution.setAptitude(info, cli.getCapacity());
+					initialSolution.setAptitude(cli.getCapacity(), info);
 
 					finalSolution = notFrozen.enfriamientoSimuladoKP(info, initialSolution);
 

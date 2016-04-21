@@ -52,7 +52,7 @@ class GRASPExploratorTSP{
 		bool buscaElemento(const vector <int> &v, const int &num){
 
 
-			for(int i = 0; i < v.size(), i++){
+			for(int i = 0; i < v.size(); i++){
 
 				if(v[i] == num)
 					return true;
@@ -64,7 +64,7 @@ class GRASPExploratorTSP{
 		int posicionElemento(const vector <int> &v, const int &num){
 
 
-			for(int i = 0; i < v.size(), i++){
+			for(int i = 0; i < v.size(); i++){
 
 				if(v[i] == num)
 					return i;
@@ -97,7 +97,7 @@ class GRASPExploratorTSP{
 		}
 
 		
-		SolucionViajante greedyConstructor(const vector <problem_element> &info){
+		SolucionViajante greedyConstructor(vector <problem_element> &info){
 
 
 		/*
@@ -185,7 +185,7 @@ class GRASPExploratorTSP{
 
 
 
-		SolucionViajante GRASP(const vector <problem_element> &info){
+		SolucionViajante GRASP(vector <problem_element> &info){
 
 
 			SolucionViajante actualSolution, currentSolution, bestSolution = greedyConstructor(info);

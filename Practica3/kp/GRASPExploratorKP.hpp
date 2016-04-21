@@ -130,14 +130,14 @@ class GRASPExploratorKP{
 			}
 
 
-			solucionFinal.setAptitude(info);
+			solucionFinal.setAptitude(_busquedaLocal.getOperator().getKPSize(), info);
 
 		  return solucionFinal;
 		}
 
 
 
-		SolucionViajante GRASP(const vector <problem_element> &info){
+		SolucionMochila GRASP(const vector <problem_element> &info){
 
 
 			SolucionMochila actualSolution, currentSolution, bestSolution = greedyConstructor(info);
