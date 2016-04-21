@@ -62,54 +62,18 @@ class GRASPExploratorKP{
 		}
 
 
+
 		SolucionMochila greedyConstructor(const vector <problem_element> &info){
 
 
-		/*
 
-		Habra n iteraciones (tantas como elementos)
-
-			Para el KP:
-
-				Debemos generar la solucion al completo desde un vector vacio.
-
-
-
-				Para ello hay que generar la lista de elementos candidatos a añadir a la solucion (deben ser elementos aun no escogidos)
-
-					La primera ciudad se escoge de forma totalmente aleatoria
-
-					Generarla escogiendo 10 elementos de forma aleatoria
-					Ordenarlos despues en base a la distancia con el último nodo añadido al vector
-					Escoger la mejor de ellos y volver a hacer la iteracion
-
-
-
-
-
-			Para el KP:
-
-				Generamos la solucion partiendo de un vector sin ningun elemento escogido (Todo el vector a 0)
-
-				Hay que generar la lista cogiendo elementos de forma aleatoria
-
-					¿Cuantos elementos hay que escoger? 	----> En torno a un 10% o un 5%
-
-					Los elementos escogidos se ordenaran en base a el ratio beneficio/peso
-
-					Se escogera el que lo maximice
-
-		*/
-
-
-
-			SolucionMochila solucionFinal;
+			SolucionMochila solucionFinal(info.size());
 			vector <int> aux;
 			int numAux;
 
 
 			//Obtenemos el resto de elementos mediante un Greedy con una lista de elemntos aleatorios
-			while(info.size() / 10){
+			while(solucionFinal.getSolucion().size() < info.size() / 10){
 
 
 				while(aux.size() < 10){	//Creamos una lista con 10 elementos aun no escogidos
@@ -119,14 +83,16 @@ class GRASPExploratorKP{
 
 						numAux = rand() % info.size();
 
-					} while(! solucionFinal.getSolucion(numAux));
+					} while(solucionFinal.getSolucion(numAux));
 					aux.push_back(numAux);		//Introducimos en la lista de candidatos un elemento aleatorio que aun no este en la lista
 				}
+
 
 				int posMejor = mejorCandidato(info, aux);
 				solucionFinal.setSolucion(posMejor, true);
 
 				aux.clear();
+
 			}
 
 
@@ -144,9 +110,9 @@ class GRASPExploratorKP{
 			double actualFitness, bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < 100000; i++){
+			for(int i = 0; i < 1000; i++){
 
-
+				cout << "Iteracion: " << i << endl;
 				currentSolution = greedyConstructor(info);
 				_busquedaLocal.localOptimum(currentSolution, actualSolution, actualFitness);
 
