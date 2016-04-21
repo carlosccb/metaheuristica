@@ -44,8 +44,8 @@ class Interfaz {
 			do {
 				std::cout << "\n\n";
 				std::cout << "¿Que tipo de Explorador de Vecindario desea usar?: " << std::endl;
-				std::cout << "  1. Primera Mejora" << std::endl;
-				std::cout << "  2. Mejor Mejora" << std::endl;
+				std::cout << "  1. Enfriamiento Simulado" << std::endl;
+				std::cout << "  2. GRASP" << std::endl;
 				std::cout << "  0. Exit" << std::endl;
 
 				std::cin >> optExplo;

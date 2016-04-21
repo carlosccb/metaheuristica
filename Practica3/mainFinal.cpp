@@ -22,6 +22,11 @@
 #include "tsp/neighborExploratorTSP.hpp"
 #include "kp/neighborOperatorKP.hpp"
 #include "tsp/neighborOperatorTSP.hpp"
+#include "kp/coolingExploratorKP.hpp"
+#include "tsp/coolingExploratorTSP.hpp"
+#include "kp/GRASPExploratorKP.hpp"
+#include "tsp/GRASPExploratorTSP.hpp"
+
 
 
 
@@ -34,8 +39,8 @@ int main(int argc, char **argv) {
 	int i;
 	int veces;
 	srand(time(NULL));
-        double tiempo;
-        int iteraciones;
+	double tiempo;
+	int iteraciones;
 
 
 	//Siempre se ejcuta hasta que el usuario quiera salir
@@ -48,55 +53,58 @@ int main(int argc, char **argv) {
 		//Se ejecuta hasta que se carga una instancia de un fichero valido
 		vector<problem_element> info = cli.read_instance(veces);
 
-               for (i = 0; i < veces; i++){
 
 		//El problema seleccionado es TSP
 		if(cli.getOpt() == 1){
 
+
 			neighborOperatorTSP operadorVecindario(info);
-			SolGeneratorViajante randomSolution;
-                        InstanceTSP instance;
-
-			//Generamos la solucion aleatoria inicial
-			SolucionViajante initialSolution;
-			initialSolution = randomSolution.randomSolutionGenerator(info.size());
-                        initialSolution.setAptitude(info);
+			InstanceTSP instance;
 
 
-			//Escogemos la primera mejora
+			//Escogemos Enfriamiento Simulado
 			if(cli.getOptExplo() == 1){
 
+				SolGeneratorViajante randomSolution;
+				coolingExploratorTSP notFrozen(operadorVecindario);
+				SolucionViajante finalSolution, initialSolution;
 
-				double localOptimumFitness;
-				SolucionViajante localOptimumSolution;
-                                clock_t time = clock(); 
+				for(int i = 0; i < 50; i++){
+
+
+					initialSolution = randomSolutionrandom.SolutionGenerator(info.size());
+					initialSolution.setAptitude(info);
+
+					finalSolution = notFrozen.enfriamientoSimuladoTSP(info, initialSolution);
+
+					cout << "Iteracion: " << i << endl;
+
+				}
+
+			}
+
+
+			//Escogemos GRASP
+			else{
+
+
+				SolucionViajante finalSolution;
 
 				firstImprovementTSP exploradorVecindario(operadorVecindario);
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
 
-				//Ejecutamos la busqueda local
-				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
-                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                      instance.saveResults(initialSolution, localOptimumFitness, localOptimumSolution, tiempo, iteraciones);
-                         cout << "Tiempo de ejecucion: " << tiempo << endl;
-			}
+				GRASPExploratorTSP GRASPing_berries(busquedaLocal);
 
 
-			//Escogemos la mejor mejora
-			else{
+				for(int i = 0; i < 50; i++){
 
-				double localOptimumFitness;
-				SolucionViajante localOptimumSolution;
-                                clock_t time = clock();
 
-				bestImprovementTSP exploradorVecindario(operadorVecindario);
-				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
+					finalSolution = GRASPing_berries.GRASP(info);
 
-				//Ejecutamos la busqueda local
-				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
-                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                      instance.saveResults(initialSolution, localOptimumFitness, localOptimumSolution, tiempo, iteraciones);
-                         cout << "Tiempo de ejecucion: " << tiempo << endl;
+
+					cout << "Iteracion: " << i << endl;
+
+				}
 
 			}
 
@@ -104,6 +112,9 @@ int main(int argc, char **argv) {
 
 
 		}
+
+
+
 		/*####################################################################################*/
 		/*####################################################################################*/
 
@@ -113,57 +124,60 @@ int main(int argc, char **argv) {
 		else{
 
 
-			neighborOperatorKP operadorVecindario(cli.getCapacity(), info);
-			SolGeneratorMochila randomSolution;
-                        InstanceKP instance;
 
-			//Generamos la solucion aleatoria inicial
-			SolucionMochila initialSolution;
-			initialSolution = randomSolution.randomSolutionGenerator(info.size());
-			initialSolution.setAptitude(cli.getCapacity(), info);
+			neighborOperatorKP operadorVecindario(info);
+			InstanceKP instance;
 
 
+			//Usamos el metodo de Enfriamiento Simulado
 			if(cli.getOptExplo() == 1){
 
+				SolGeneratorMochila randomSolution;
+				coolingExploratorKP notFrozen(operadorVecindario);
+				SolucionMochila finalSolution, initialSolution;
 
-				double localOptimumFitness;
-				SolucionMochila localOptimumSolution;
-                                clock_t time = clock();
+				for(int i = 0; i < 50; i++){
+
+
+					initialSolution = randomSolution.randomSolutionGenerator(info.size());
+					initialSolution.setAptitude(info);
+
+					finalSolution = notFrozen.enfriamientoSimuladoKP(info, initialSolution);
+
+					cout << "Iteracion: " << i << endl;
+
+				}
+
+			}
+
+
+			//Usamos el GRASP
+			else{
+
+
+
+				SolucionMochila finalSolution;
 
 				firstImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
-				//Ejecutamos la busqueda local
-				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution, localOptimumFitness);
-                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                      instance.saveResults(initialSolution, localOptimumFitness, localOptimumSolution, tiempo, iteraciones);
-                         cout << "Tiempo de ejecucion: " << tiempo << endl;
-			}
+				GRASPExploratorKP GRASPing_berries(busquedaLocal);
 
 
+				for(int i = 0; i < 50; i++){
 
-			else{
 
-				double localOptimumFitness2;
-				SolucionMochila localOptimumSolution2;
-                                clock_t time = clock();
+					finalSolution = GRASPing_berries.GRASP(info);
 
-				bestImprovementKP exploradorVecindario(operadorVecindario);
-				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
 
-				//Ejecutamos la busqueda local
-				iteraciones = busquedaLocal.localOptimum(initialSolution, localOptimumSolution2, localOptimumFitness2);
-                                tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                      instance.saveResults(initialSolution, localOptimumFitness2, localOptimumSolution2, tiempo, iteraciones);
-                         cout << "Tiempo de ejecucion: " << tiempo << endl;
+					cout << "Iteracion: " << i << endl;
+
+				}
 
 			}
 
 
 		}
-
-
-               }
 
 	}	//Fin while(true)
 

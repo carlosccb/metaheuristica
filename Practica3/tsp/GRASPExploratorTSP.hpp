@@ -28,8 +28,6 @@ class GRASPExploratorTSP{
 
 	private:
 
-		neighborOperatorTSP _operador;
-		firstImprovementTSP _explorador;
 		localSearchTSP _busquedaLocal;
 
 
@@ -37,11 +35,10 @@ class GRASPExploratorTSP{
 
 
 		GRASPExploratorTSP(){};
-		GRASPExploratorTSP(localSearchTSP &busquedaLocal, firstImprovementTSP &explorador, neighborOperatorTSP &operador){
+		GRASPExploratorTSP(localSearchTSP &busquedaLocal){
 
 			_busquedaLocal = busquedaLocal;
-			_explorador = explorador;
-			_operador = operador;
+
 		}
 
 
@@ -205,7 +202,7 @@ class GRASPExploratorTSP{
 
 					bestSolution = actualSolution;
 					bestFitness = actualFitness;
-				}				
+				}
 			}
 
 		  return bestSolution;

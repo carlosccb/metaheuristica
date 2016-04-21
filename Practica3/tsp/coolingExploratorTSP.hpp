@@ -58,7 +58,7 @@ class coolingExploratorTSP{
 
 		//Funciones pequeñas
 
-		double temperatureRestart(const vector <problem_element> &info, const int &size){
+		double temperatureRestart(const vector <problem_element> &info){
 
 			/*
 
@@ -82,10 +82,10 @@ class coolingExploratorTSP{
 			for(unsigned int i = 0; i < 5; i++){
 
 
-				int pos1 = random() % size;
-				int pos2 = random() % size;
+				int pos1 = random() % info.size();
+				int pos2 = random() % info.size();
 
-				SolucionViajante original = solGenerator(size);
+				SolucionViajante original = solGenerator(info.size());
 				original.setAptitude(info);
 				double fitness1 = original.getFitness();
 
@@ -139,7 +139,7 @@ class coolingExploratorTSP{
 		SolucionViajante enfriamientoSimuladoTSP(const vector <problem_element> &info, const Solucion Viajante &initialSolution){
 
 
-			temperatureRestart(info, initialSolution.getSolution.size());
+			temperatureRestart(info);
 
 		  double actualFitness, newfitness, bestFitness;
 		  SolucionViajante bestSolution, actualSolution, newSolution;
