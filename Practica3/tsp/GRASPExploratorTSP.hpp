@@ -51,6 +51,8 @@ class GRASPExploratorTSP{
 		//Funcion que busca si esta presente un valor dentro de un vector de enteros
 		bool buscaElemento(const vector <int> &v, const int &num){
 
+			if(v.size() == 0)
+				return false;
 
 			for(int i = 0; i < v.size(); i++){
 
@@ -60,6 +62,8 @@ class GRASPExploratorTSP{
 
 		  return false;
 		}
+
+
 
 		int posicionElemento(const vector <int> &v, const int &num){
 
@@ -159,11 +163,7 @@ class GRASPExploratorTSP{
 				while(aux2.size() < 10){	//Creamos una lista con 10 elementos aun no escogidos
 
 
-					do{
-
-						numAux = rand() % aux.size();
-
-					} while(! buscaElemento(aux2, aux[numAux]));
+					numAux = rand() % aux.size();
 					aux2.push_back(aux[numAux]);		//Introducimos en la lista de candidatos un numero aleatorio que aun no este en la lista
 				}
 
