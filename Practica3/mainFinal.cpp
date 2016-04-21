@@ -71,13 +71,12 @@ int main(int argc, char **argv) {
 
 				for(int i = 0; i < 50; i++){
 
+					cout << "Iteracion: " << i << endl;
 
 					initialSolution = randomSolution.randomSolutionGenerator(info.size());
 					initialSolution.setAptitude(info);
 
 					finalSolution = notFrozen.enfriamientoSimuladoTSP(info, initialSolution);
-
-					cout << "Iteracion: " << i << endl;
 
 				}
 
@@ -99,10 +98,8 @@ int main(int argc, char **argv) {
 				for(int i = 0; i < 50; i++){
 
 
-					finalSolution = GRASPing_berries.GRASP(info);
-
-
 					cout << "Iteracion: " << i << endl;
+					finalSolution = GRASPing_berries.GRASP(info);
 
 				}
 
@@ -139,12 +136,12 @@ int main(int argc, char **argv) {
 				for(int i = 0; i < 50; i++){
 
 
+					cout << "Iteracion: " << i << endl;
+
 					initialSolution = randomSolution.randomSolutionGenerator(info.size());
 					initialSolution.setAptitude(cli.getCapacity(), info);
 
 					finalSolution = notFrozen.enfriamientoSimuladoKP(info, initialSolution);
-
-					cout << "Iteracion: " << i << endl;
 
 				}
 
@@ -166,11 +163,9 @@ int main(int argc, char **argv) {
 
 				for(int i = 0; i < 50; i++){
 
-
-					finalSolution = GRASPing_berries.GRASP(info);
-
-
 					cout << "Iteracion: " << i << endl;
+					finalSolution = GRASPing_berries.GRASP(info);
+					cout << "Fitness Iteracion = " << finalSolution.getFitness() << endl;
 
 				}
 
