@@ -65,15 +65,16 @@ int main(int argc, char **argv) {
 			//Escogemos Enfriamiento Simulado
 			if(cli.getOptExplo() == 1){
 
-                                tiempoTotal=0.0;
+				tiempoTotal=0.0;
 
 				SolGeneratorViajante randomSolution;
 				coolingExploratorTSP notFrozen(operadorVecindario);
 				SolucionViajante finalSolution, initialSolution;
-                                clock_t time; 
+				clock_t time; 
 
 				for(int i = 0; i < 50; i++){
-                                time = clock();
+
+					time = clock();
 
 					cout << "Iteracion: " << i << endl;
 
@@ -81,10 +82,10 @@ int main(int argc, char **argv) {
 					initialSolution.setAptitude(info);
 
 					finalSolution = notFrozen.enfriamientoSimuladoTSP(info, initialSolution);
-                                 tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                                 tiempoTotal = tiempoTotal + tiempo;
-                                 instance.saveResults(initialSolution, finalSolution.getFitness(), finalSolution, tiempo);
-                                 cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
+					tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+					tiempoTotal = tiempoTotal + tiempo;
+					instance.saveResults(initialSolution, finalSolution.getFitness(), finalSolution, tiempo);
+					cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
 
 				}
 
@@ -94,28 +95,29 @@ int main(int argc, char **argv) {
 			//Escogemos GRASP
 			else{
 
-                                tiempoTotal=0.0;
+				tiempoTotal=0.0;
 
 
 				SolucionViajante finalSolution;
 
 				firstImprovementTSP exploradorVecindario(operadorVecindario);
 				localSearchTSP busquedaLocal(operadorVecindario, exploradorVecindario);
-                                clock_t time;
+				clock_t time;
 
 				GRASPExploratorTSP GRASPing_berries(busquedaLocal);
 
 
 				for(int i = 0; i < 50; i++){
-                                time = clock();
+
+					time = clock();
 
 
 					cout << "Iteracion: " << i << endl;
 					finalSolution = GRASPing_berries.GRASP(info);
-                                 tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                                 tiempoTotal = tiempoTotal + tiempo;
-                                 instance.saveResults(finalSolution, finalSolution.getFitness(), finalSolution, tiempo);
-                                 cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
+					tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+					tiempoTotal = tiempoTotal + tiempo;
+					instance.saveResults(finalSolution, finalSolution.getFitness(), finalSolution, tiempo);
+					cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
 
 				}
 
@@ -145,16 +147,17 @@ int main(int argc, char **argv) {
 			//Usamos el metodo de Enfriamiento Simulado
 			if(cli.getOptExplo() == 1){
 
-                                tiempoTotal=0.0;
+				tiempoTotal=0.0;
 
 				SolGeneratorMochila randomSolution;
 				coolingExploratorKP notFrozen(operadorVecindario);
 				SolucionMochila finalSolution, initialSolution;
-                                clock_t time;
+				clock_t time;
 
 				for(int i = 0; i < 50; i++){
-                                time = clock();
 
+
+					time = clock();
 
 					cout << "Iteracion: " << i << endl;
 
@@ -162,10 +165,10 @@ int main(int argc, char **argv) {
 					initialSolution.setAptitude(cli.getCapacity(), info);
 
 					finalSolution = notFrozen.enfriamientoSimuladoKP(info, initialSolution);
-                                 tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                                 tiempoTotal = tiempoTotal + tiempo;
-                                 instance.saveResults(initialSolution, finalSolution.getFitness(), finalSolution, tiempo);
-                                 cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
+					tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+					tiempoTotal = tiempoTotal + tiempo;
+					instance.saveResults(initialSolution, finalSolution.getFitness(), finalSolution, tiempo);
+					cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
 
 				}
 
@@ -175,28 +178,28 @@ int main(int argc, char **argv) {
 			//Usamos el GRASP
 			else{
 
-                                tiempoTotal=0.0;
+				tiempoTotal=0.0;
 
 				SolucionMochila finalSolution;
 
 				firstImprovementKP exploradorVecindario(operadorVecindario);
 				localSearchKP busquedaLocal(operadorVecindario, exploradorVecindario);
-                                clock_t time;
+				clock_t time;
 
 				GRASPExploratorKP GRASPing_berries(busquedaLocal);
 
 
 				for(int i = 0; i < 50; i++){
                                  
-                                time = clock();
+					time = clock();
 
 					cout << "Iteracion: " << i << endl;
 					finalSolution = GRASPing_berries.GRASP(info);
 					cout << "Fitness Iteracion = " << finalSolution.getFitness() << endl;
-                                 tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
-                                 tiempoTotal = tiempoTotal + tiempo;
-                                 instance.saveResults(finalSolution, finalSolution.getFitness(), finalSolution, tiempo);
-                                 cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
+					tiempo = ((double) (clock() - time)/CLOCKS_PER_SEC);
+					tiempoTotal = tiempoTotal + tiempo;
+					instance.saveResults(finalSolution, finalSolution.getFitness(), finalSolution, tiempo);
+					cout << "Tiempo de ejecucion: " << tiempo << " Total: "<< tiempoTotal << endl;
 
 				}
 
