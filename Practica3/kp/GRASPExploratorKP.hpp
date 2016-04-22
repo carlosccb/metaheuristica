@@ -41,18 +41,19 @@ class GRASPExploratorKP{
 		}
 
 
-		int mejorCandidato(const vector <problem_element> &info, const vector <int> &candidatos){
+		int mejorCandidato(const vector <problem_element> &info, vector <int> &candidatos){
 
 
-			int posMejor = 0;
-			double ratioMejor = info[0].a / info[0].b;		//beneficio / peso
+			int posMejor = candidatos[0];
+			double ratioMejor = info[candidatos[0]].a / info[candidatos[0]].b;		//beneficio / peso
 
 			for(int i = 1; i < candidatos.size(); i++){
 
-				double ratioActual = info[i].a / info[i].b;
+
+				double ratioActual = info[candidatos[i]].a / info[candidatos[i]].b;
 				if( ratioActual > ratioMejor ){
 
-					posMejor = i;
+					posMejor = candidatos[i];
 					ratioMejor = ratioActual;
 				}
 
@@ -73,7 +74,7 @@ class GRASPExploratorKP{
 
 
 			//Obtenemos el resto de elementos mediante un Greedy con una lista de elemntos aleatorios
-			while(solucionFinal.getSolucion().size() < info.size() / 10){
+			while(solucionFinal.getSolucion().size() < (info.size() / 10)){
 
 
 				while(aux.size() < 10){	//Creamos una lista con 10 elementos aun no escogidos
@@ -110,9 +111,9 @@ class GRASPExploratorKP{
 			double actualFitness, bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < 1000; i++){
+			for(int i = 0; i < 100; i++){
 
-				cout << "Iteracion: " << i << endl;
+//				cout << "Iteracion: " << i << endl;
 				currentSolution = greedyConstructor(info);
 				_busquedaLocal.localOptimum(currentSolution, actualSolution, actualFitness);
 

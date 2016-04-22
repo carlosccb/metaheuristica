@@ -134,7 +134,7 @@ class coolingExploratorKP{
 
 			for(unsigned int k = 0; k < 100000; k++){
 
-				cout << "Iteracion: " << k << endl;
+//				cout << "Iteracion: " << k << endl;
 
 				int pos1 = random() % initialSolution.getSolucion().size();
 				newSolution = getOperator().generateNeighbor(actualSolution, pos1);
