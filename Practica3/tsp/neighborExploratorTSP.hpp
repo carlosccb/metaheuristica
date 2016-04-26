@@ -80,9 +80,9 @@ class firstImprovementTSP: public neighborExploratorTSP{
 			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < getOperator().getInfo().size() - 1; i++){
+			for(int i = 0; i < getOperator().getInfo().size(); i++){
 
-				for(int j = i + 1; j < getOperator().getInfo().size(); j++){
+				for(int j = i + 1; j <= getOperator().getInfo().size(); j++){
 
 
 					actualSolution = getOperator().generateNeighbor(initialSolution, i, j);
@@ -133,9 +133,9 @@ class bestImprovementTSP: public neighborExploratorTSP{
 
 
 
-			for(int i = 0; i < getOperator().getInfo().size() - 1; i++){
+			for(int i = 0; i < getOperator().getInfo().size(); i++){
 
-				for(int j = i + 1; j < getOperator().getInfo().size(); j++){
+				for(int j = i + 1; j <= getOperator().getInfo().size(); j++){
 
 
 

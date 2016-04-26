@@ -44,13 +44,7 @@ class neighborOperatorTSP{
 			int aux;
 			SolucionViajante solucion(initialSolution);
 
-			if(posA > posB){
 
-				aux = posA;
-				posA = posB;
-				posB = aux;
-			}else if (posA == posB) return solucion;
-		        
 			if( inversion == false){
 
 				aux = solucion.getSolucion(posA);
@@ -60,7 +54,7 @@ class neighborOperatorTSP{
 			} else {
 				solucion.reverseSolucion(posA, posB);
 					
-				}
+			}
 
 
 				//Re-calculamos el fitness para la solucion

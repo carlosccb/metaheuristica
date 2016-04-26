@@ -82,8 +82,8 @@ class coolingExploratorTSP{
 			for(unsigned int i = 0; i < 5; i++){
 
 
-				int pos1 = random() % info.size();
-				int pos2 = random() % info.size();
+				int pos1 = random() % (info.size() + 1);
+				int pos2 = random() % (info.size() + 1);
 
 				SolucionViajante original = solGenerator.randomSolutionGenerator(info.size());
 				original.setAptitude(info);
@@ -152,8 +152,8 @@ class coolingExploratorTSP{
 
 
 
-				int pos1 = random() % initialSolution.getSolucion().size();
-				int pos2 = random() % initialSolution.getSolucion().size();
+				int pos1 = random() % (initialSolution.getSolucion().size() + 1);
+				int pos2 = random() % (initialSolution.getSolucion().size() + 1);
 				newSolution = getOperator().generateNeighbor(actualSolution, pos1, pos2);
 				newFitness = newSolution.getFitness();
 

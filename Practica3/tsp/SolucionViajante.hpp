@@ -37,7 +37,17 @@ class SolucionViajante{
      
      
   void reverseSolucion(int posA, int posB){
-  	reverse(_solucion.begin() + posA, _solucion.begin() + posB);
+
+	int aux;
+
+		if(posA > posB){
+
+			aux = posA;
+			posA = posB;
+			posB = aux;
+		}else if (posA == posB) return;
+
+		reverse(_solucion.begin() + posA, _solucion.begin() + posB);
   }
 
 
