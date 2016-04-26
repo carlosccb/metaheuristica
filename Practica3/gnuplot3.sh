@@ -9,6 +9,6 @@ set ylabel "Númeor de iteraciones"
 
 plot 'KP_Fitness&Time.txt' using 1:5 t "Iteraciones" w l
 
-set output "graficoTSPTiempo.eps"
+set output "graficoTSPiteraciones.eps"
 plot 'TSP_Fitness&Time.txt' using 1:5 t "Iteraciones" w l
 _end_
