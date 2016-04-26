@@ -70,11 +70,11 @@ class GRASPExploratorKP{
 
 			SolucionMochila solucionFinal(info.size());
 			vector <int> aux;
-			int numAux;
+			int numAux, i = 0;
 
 
 			//Obtenemos el resto de elementos mediante un Greedy con una lista de elemntos aleatorios
-			while(solucionFinal.getSolucion().size() < (info.size() / 10)){
+			while(i < (info.size() / 10)){
 
 
 				while(aux.size() < 10){	//Creamos una lista con 10 elementos aun no escogidos
@@ -94,6 +94,7 @@ class GRASPExploratorKP{
 
 				aux.clear();
 
+				i++;
 			}
 
 
