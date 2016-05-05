@@ -127,13 +127,21 @@ class geneticAlgorithmTSP{
 
 		int distaciaHamming(const SolucionViajante &sol1, const SolucionViajante &sol2){
 
+		  int distHamming = 0;
 
+			if(sol1.getSolucion().size() != sol2.getSolucion().size()){
 
+				cout << endl << "Error. El tamaño de los vectores solucion no es similar" << endl << endl;
+				exit(0);
+			}
 
+			for(int i = 0; i < sol1.getSolucion().size(); i++){
 
+				if(sol1.getSolucion(i) != sol2.getSolucion(i))
+					distHamming++;
+			}
 
-
-
+			return distHamming;
 		}
 
 };
