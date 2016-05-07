@@ -38,20 +38,9 @@ class Interfaz {
 				std::cin >> opt;
 			} while(0 > opt || opt > 2);
 
-			if(opt == 0)
-				return opt;
 
-			do {
-				std::cout << "\n\n";
-				std::cout << "¿Que tipo de Explorador de Vecindario desea usar?: " << std::endl;
-				std::cout << "  1. Enfriamiento Simulado" << std::endl;
-				std::cout << "  2. GRASP" << std::endl;
-				std::cout << "  0. Exit" << std::endl;
+		  return opt;
 
-				std::cin >> optExplo;
-			} while(0 > optExplo || optExplo > 2);
-
-			return optExplo;
 		}
 
 		int getOpt() {return opt;}

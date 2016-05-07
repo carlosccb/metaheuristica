@@ -17,6 +17,7 @@
 #include <iostream>
 
 #define POP_SIZE 50
+#define MAX 128
 
 using namespace std;
 
@@ -34,12 +35,8 @@ class geneticAlgorithmTSP{
 	public:
 
 
-		geneticAlgorithm(const vector <problem_element> &info){_info = info;};
-		~geneticAlgorithm(){};
-
-
-
-
+		geneticAlgorithmTSP(const vector <problem_element> &info){_info = info;};
+		~geneticAlgorithmTSP(){};
 
 
 
@@ -54,21 +51,45 @@ class geneticAlgorithmTSP{
 		SolucionViajante GA(){
 
 
+
+		  SolucionViajante bestSolution;
+		  int contador = 1;		//Variable con el numero de iteraciones
+
 			_population = initializePopulation(POP_SIZE);	//Inicializamos la poblacion
 
-			while(/* Condicion de Parada */){
+
+			evaluatePopulation(_population);
+
+
+			//Tras ordenar, el primer elemento de la poblacion es el mejor
+			bestSolution = _population[0];
+
+
+			while(contador < 1000){
+
 
 				vector <SolucionViajante> auxiliarPopulation;
 
 				//Creamos la nueva poblacion por completo
-				while(auxiliarPopulation.size() < _population.size()){
+				while(auxiliarPopulation.size() < _population.size())
 
-					generarHijos(auxiliarPopulation);
+					evolvePopulation(auxiliarPopulation);
 
 
-				}
+				evaluatePopulation(auxiliarPopulation);
+				_population = auxiliarPopulation;
+
+				if(bestSolution.getFitness() > _population[0].getFitness())
+					bestSolution = _population[0];
+
+				cout << "Iteracion: " << contador << "  --> " << bestSolution.getFitness() << endl;
+
+
+				contador++;
 			}
 
+
+		  return bestSolution;
 		}
 
 
@@ -91,11 +112,8 @@ class geneticAlgorithmTSP{
 		  vector <SolucionViajante> auxiliarPopulation;
 		  SolGeneratorViajante solGenerator;
 
-		  SolucionViajante newIndividual = solGenerator.randomSolutionGenerator(_info.size());
-		  newIndividual.setAptitude();
+		  SolucionViajante newIndividual;
 
-
-			auxiliarPopulation.push_back(newIndividual);
 			for(int i = 0; i < popSize; i++){
 
 				bool valid = false;
@@ -104,15 +122,17 @@ class geneticAlgorithmTSP{
 
 					valid = true;
 					newIndividual = solGenerator.randomSolutionGenerator(_info.size());
-					newIndividual.setAptitude();
+					newIndividual.setAptitude(_info);
 
 					//Comprobamos que este lo suficientemente separado del resto de individuos
 					for(int j = 0; j < auxiliarPopulation.size(); j++){
 
 						//Comprobamos si la distancia de Hamming es mayor que L/4
-						if( distanciaHamming(auxiliarPopulation[i], newIndividual) < (_info.size() / 4) )
-							valid = false;
+						if( distanciaHamming(auxiliarPopulation[j], newIndividual) < (_info.size() / 4) ){
 
+							valid = false;
+							break;
+						}
 					}
 
 				}
@@ -125,7 +145,8 @@ class geneticAlgorithmTSP{
 		}
 
 
-		int distaciaHamming(const SolucionViajante &sol1, const SolucionViajante &sol2){
+		//Funcion que devulve la distancia de hamming entre dos soluciones
+		int distanciaHamming(const SolucionViajante &sol1, const SolucionViajante &sol2){
 
 		  int distHamming = 0;
 
@@ -142,6 +163,321 @@ class geneticAlgorithmTSP{
 			}
 
 			return distHamming;
+		}
+
+
+
+
+		/*-----------------------------------------------------------------------
+
+			Funcion que ordena los inidividuos de la poblacion en funcion de su
+			fitness, en orden descendente (del mejor individuo al peor, es decir,
+			de la solucion con menor fitness a la de mayor valor de fitness)
+
+		------------------------------------------------------------------------*/
+
+		void evaluatePopulation(vector <SolucionViajante> &population){
+
+
+		  unsigned int left = 0, pos = 0, seed = rand();
+		  unsigned int stack[MAX];
+
+		  unsigned int len = population.size();
+
+			while (1) {
+
+				for (; left+1 < len; len++){
+
+		            if (pos == MAX)
+		            	len = stack[pos = 0];
+
+
+	            	  double pivot = population[left+seed%(len-left)].getFitness();
+
+		            seed = seed*69069+1;
+		            stack[pos++] = len;
+
+					for (unsigned right = left-1; ; ) {
+
+			            while (population[++right].getFitness() < pivot);
+			            while (pivot < population[--len].getFitness());
+
+			            if (right >= len)
+			            	break;
+
+		              SolucionViajante temp = population[right];
+
+			            population[right] = population[len];
+			            population[len] = temp;
+					}
+				}
+
+	        	if (pos == 0)
+			        break;
+
+	        	left = len;
+	        	len = stack[--pos];
+			}
+
+		}
+
+
+
+
+
+
+		/*-----------------------------------------------------------------------
+
+			Funcion que escoge a los dos mejores individuos del cruce de dos
+			padres de la poblacion dada, y los añade a la nueva poblacion
+
+		------------------------------------------------------------------------*/
+
+		void evolvePopulation(vector <SolucionViajante> &newPopulation){
+
+
+		  SolucionViajante pA, pB;
+		  vector <SolucionViajante> subPopulation;
+
+
+			selectParents(pA, pB);
+
+			//Obtenemos una subpoblacion con los padres y los hijos que estos generan
+			subPopulation = geneticOperator(pA, pB);
+
+			//Dejamos en el vector solo a los dos mejores individuos
+			selectIndividuals(subPopulation);
+
+			newPopulation.push_back(subPopulation[0]);
+			newPopulation.push_back(subPopulation[1]);
+		}
+
+
+
+
+
+		/*-----------------------------------------------------------------------
+
+			Funcion que selecciona dos padres por el metodo Stochastic Universal
+			Sampling, el cual funciona de forma similar al de la Ruleta, pero con
+			tantos apuntadores como padres se quieran escoger
+
+		------------------------------------------------------------------------*/
+
+		void selectParents(SolucionViajante &pA, SolucionViajante &pB){
+
+
+/*
+		  vector <double> ruleta;
+		  double sumatorioFitness = 0.0;
+
+
+			for(int i = 0; i < _population.size(); i++){
+
+				ruleta.push_back(sumatorioFitness);				
+
+				sumatorioFitness += _population[i].getFitness();
+			}
+
+			//La suma del fitness del ultimo elemento es necesaria
+*/
+
+
+		  vector <SolucionViajante> potentialParents;
+		  vector <int> aux;
+		  int numAux;
+
+
+			//Obtenemos padres potenciales de forma aleatoria de la poblacion
+			while(potentialParents.size() < 5){
+
+				numAux = rand() % _population.size();
+				bool valid = true;
+
+				for(int i = 0; i < aux.size(); i++){
+
+					if(numAux == aux[i])
+						valid = false;
+
+				}
+
+				if(valid){
+
+					potentialParents.push_back(_population[numAux]);
+					aux.push_back(numAux);
+				}
+
+			}
+
+			//Escogemos al mejor individuo de todos para ser uno de los padres
+			evaluatePopulation(potentialParents);
+			pA = potentialParents[0];
+
+
+			potentialParents.clear();
+			aux.clear();
+
+
+			//Hacemos el torneo para escoger al SEGUNDO padre
+			while(potentialParents.size() < 5){
+
+				numAux = rand() % _population.size();
+				bool valid = true;
+
+				for(int i = 0; i < aux.size(); i++){
+
+					if(numAux == aux[i])
+						valid = false;
+
+				}
+
+				if(valid){
+
+					potentialParents.push_back(_population[numAux]);
+					aux.push_back(numAux);
+				}
+
+			}
+
+			pB = potentialParents[0];
+
+
+		}
+
+
+
+
+		/*-----------------------------------------------------------------------
+
+			Funcion que lleva a cabo la reproduccion de dos individuos, escogiendo
+			un punto de cruce, para despues ejecutar el algoritmo de entrecruzamiento
+
+		------------------------------------------------------------------------*/
+
+
+		vector <SolucionViajante> geneticOperator(const SolucionViajante &pA, const SolucionViajante &pB){
+
+
+		  vector <SolucionViajante> naturalOrder;	//Vector que guarda a toda la familia generada
+
+			naturalOrder.push_back(pA);
+			naturalOrder.push_back(pB);
+
+
+		  int pointA, pointB;
+
+			//Obtenemos dos puntos de cruce diferentes
+			pointA = rand() % pA.getSolucion().size();
+
+			do{
+
+				pointB = rand() % pA.getSolucion().size();
+
+			} while(pointB == pointA);
+
+			if(pointA > pointB){
+
+				int aux = pointA;
+				pointA = pointB;
+				pointB = aux;
+			}
+
+
+			SolucionViajante offspring1 = crossover(pA, pB, pointA, pointB);
+			SolucionViajante offspring2 = crossover(pB, pA, pointA, pointB);
+
+			naturalOrder.push_back(offspring1);
+			naturalOrder.push_back(offspring2);
+
+		  return naturalOrder;
+		}
+
+
+
+
+		//Funcion que lleva a cabo el cruce ordenado (OX) de dos "Cromosomas"
+		SolucionViajante crossover(const SolucionViajante &pA, const SolucionViajante &pB, const int &pointA, const int &pointB){
+
+
+
+		  SolucionViajante hijo;
+		  vector <int> solucion;
+
+		  vector <int> remaining;
+
+			//Rellenamos el vector solucion con las posiciones intermedias del padre A
+			for(int i = 0; i < pA.getSolucion().size(); i++){
+
+
+				if(i < pointA || i > pointB)
+					solucion.push_back(-1);
+
+				else
+					solucion.push_back(pA.getSolucion(i));
+
+
+			}
+
+			//Guardamos los elementos sin usar del padre B en orden
+			int k = pointA;
+			do{
+
+				if( ! buscar(solucion, pB.getSolucion(k)) )
+					remaining.push_back(pB.getSolucion(k));
+
+
+				if(k == solucion.size() - 1)
+					k = 0;
+
+				else
+					k++;
+
+
+			} while(k != pointA);
+
+
+
+			//Damos los valores sin usar a las zonas que estan fuera de los puntos de cruce
+			for(int i = 0; i < solucion.size(); i++){
+
+
+				if(solucion[i] == -1){
+
+					solucion[i] = remaining[0];
+					remaining.erase(remaining.begin());
+				}
+			}
+
+			hijo.setSolucion(solucion);
+			hijo.setAptitude(_info);
+
+
+		  return hijo;
+		}
+
+
+		bool buscar(const vector <int> &v, const int &n){
+
+
+			for(int i = 0; i < v.size(); i++){
+
+				if(v[i] == n)
+					return true;
+			}
+
+		  return false;
+		}
+
+
+		//Funcion que escoge entre los dos mejores individuos despues de un cruce
+		void selectIndividuals(vector <SolucionViajante> &naturalOrder){
+
+
+			evaluatePopulation(naturalOrder);
+
+			while(naturalOrder.size() > 2)
+				naturalOrder.erase( naturalOrder.begin() + (naturalOrder.size() - 1) );
+
 		}
 
 };
