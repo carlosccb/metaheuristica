@@ -27,6 +27,7 @@
 #include "kp/GRASPExploratorKP.hpp"
 #include "tsp/GRASPExploratorTSP.hpp"
 #include "tsp/geneticAlgorithmTSP.hpp"
+#include "kp/geneticAlgorithmKP.hpp"
 
 
 
@@ -60,11 +61,17 @@ int main(int argc, char **argv) {
 
 
 			InstanceTSP instance;
-			geneticAlgorithmTSP aReproducirse(info);
+			geneticAlgorithmTSP aReproducirseTSP(info);
 
-			SolucionViajante solucionFinal = aReproducirse.GA();
+			SolucionViajante solucionFinal = aReproducirseTSP.GA();
 
-//			cout << endl << "Fitness: " << solucionFinal.getFitness() << endl << endl;
+			cout << endl << "Fitness: " << solucionFinal.getFitness() << endl << endl;
+			for (int i = 0; i < solucionFinal.getSolucion().size(); i++){
+
+				cout << solucionFinal.getSolucion(i);
+				if (i != solucionFinal.getSolucion().size() -1) cout << "-> ";
+			}
+
 
 		}
 
@@ -78,6 +85,18 @@ int main(int argc, char **argv) {
 		//El problema seleccionado es KP
 		else{
 
+
+			InstanceKP instance;
+			geneticAlgorithmKP aReproducirseKP(info, cli.getCapacity());
+
+			SolucionMochila solucionFinal = aReproducirseKP.GA();
+
+			cout << endl << "Fitness: " << solucionFinal.getFitness() << endl << endl;
+			for (int i = 0; i < solucionFinal.getSolucion().size(); i++){
+
+				cout << solucionFinal.getSolucion(i);
+				if (i != solucionFinal.getSolucion().size() -1) cout << "-> ";
+			}
 
 
 
