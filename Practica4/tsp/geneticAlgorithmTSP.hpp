@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-#define POP_SIZE 200
+#define POP_SIZE 50
 #define MAX 128
 
 using namespace std;
