@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-#define POP_SIZE 50
+#define POP_SIZE 200
 #define MAX 128
 
 using namespace std;
@@ -65,7 +65,7 @@ class geneticAlgorithmTSP{
 			bestSolution = _population[0];
 
 
-			while(contador < 1000){
+			while(contador < 100000){
 
 
 				vector <SolucionViajante> auxiliarPopulation;
@@ -184,6 +184,9 @@ class geneticAlgorithmTSP{
 
 		  unsigned int len = population.size();
 
+
+//			cout << endl << "Tamaño poblacion: " << population.size() << endl;
+
 			while (1) {
 
 				for (; left+1 < len; len++){
@@ -218,6 +221,10 @@ class geneticAlgorithmTSP{
 	        	left = len;
 	        	len = stack[--pos];
 			}
+
+
+//			for(int i = 0; i < population.size(); i++)
+//				cout << "Fitness " << i << ": " << population[i].getFitness() << endl;
 
 		}
 
@@ -265,22 +272,6 @@ class geneticAlgorithmTSP{
 		------------------------------------------------------------------------*/
 
 		void selectParents(SolucionViajante &pA, SolucionViajante &pB){
-
-
-/*
-		  vector <double> ruleta;
-		  double sumatorioFitness = 0.0;
-
-
-			for(int i = 0; i < _population.size(); i++){
-
-				ruleta.push_back(sumatorioFitness);				
-
-				sumatorioFitness += _population[i].getFitness();
-			}
-
-			//La suma del fitness del ultimo elemento es necesaria
-*/
 
 
 		  vector <SolucionViajante> potentialParents;
@@ -339,6 +330,7 @@ class geneticAlgorithmTSP{
 
 			}
 
+			evaluatePopulation(potentialParents);
 			pB = potentialParents[0];
 
 
@@ -473,10 +465,10 @@ class geneticAlgorithmTSP{
 		void selectIndividuals(vector <SolucionViajante> &naturalOrder){
 
 
-			evaluatePopulation(naturalOrder);
+//			evaluatePopulation(naturalOrder);
 
 			while(naturalOrder.size() > 2)
-				naturalOrder.erase( naturalOrder.begin() + (naturalOrder.size() - 1) );
+				naturalOrder.erase( naturalOrder.begin() /* + (naturalOrder.size() - 1)*/ );
 
 		}
 

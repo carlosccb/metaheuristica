@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-#define POP_SIZE2 50
+#define POP_SIZE2 200
 #define MAX 128
 
 using namespace std;
@@ -69,7 +69,7 @@ class geneticAlgorithmKP{
 			bestSolution = _population[_population.size() - 1];
 
 
-			while(contador < 2){
+			while(contador < 1000){
 
 
 			  vector <SolucionMochila> auxiliarPopulation;
@@ -79,12 +79,11 @@ class geneticAlgorithmKP{
 
 					evolvePopulation(auxiliarPopulation);
 
-				cout << "knapPI_12_500_1000.csv" << endl;
 
 				evaluatePopulation(auxiliarPopulation);
 				_population = auxiliarPopulation;
 
-				if(bestSolution.getFitness() > _population[_population.size() - 1].getFitness())
+				if(bestSolution.getFitness() < _population[_population.size() - 1].getFitness())
 					bestSolution = _population[_population.size() - 1];
 
 				cout << "Iteracion: " << contador << "  --> " << bestSolution.getFitness() << endl;
@@ -247,21 +246,14 @@ class geneticAlgorithmKP{
 		  SolucionMochila pA, pB;
 		  vector <SolucionMochila> subPopulation;
 
-			cout << "Antes de la seleccion de padres" << endl;
-
 			selectParents(pA, pB);
-
-			cout << "Antes del Operador de cruce" << endl;
 
 			//Obtenemos una subpoblacion con los padres y los hijos que estos generan
 			subPopulation = geneticOperator(pA, pB);
 
-			cout << "Antes de la seleccion de individuos" << endl;
-
 			//Dejamos en el vector solo a los dos mejores individuos
 			selectIndividuals(subPopulation);
 
-			cout << "Tras la seleccion de individuos" << endl;
 
 			newPopulation.push_back(subPopulation[0]);
 			newPopulation.push_back(subPopulation[1]);
@@ -283,39 +275,65 @@ class geneticAlgorithmKP{
 
 
 
-		  vector <double> ruleta;
-		  double sumatorioFitness = 0.0;
+		  vector <SolucionMochila> potentialParents;
+		  vector <int> aux;
+		  int numAux;
 
 
-			for(int i = 0; i < _population.size(); i++){
+			//Obtenemos padres potenciales de forma aleatoria de la poblacion
+			while(potentialParents.size() < 5){
 
-				ruleta.push_back(sumatorioFitness);				
+				numAux = rand() % _population.size();
+				bool valid = true;
 
-				sumatorioFitness += _population[i].getFitness();
-				//La suma del fitness del ultimo elemento es necesaria
+				for(int i = 0; i < aux.size(); i++){
 
-			}
+					if(numAux == aux[i])
+						valid = false;
 
-			//Giramos la ruleta y vemos donde se posicionan los apuntadores
-		  double numAux = rand() % (int) sumatorioFitness;
-		  int posA = -1, posB;
-
-			cout << "numAux = " << numAux << endl;
-
-			for(int i = 0; i < ruleta.size(); i++){
-
-				cout << "ruleta[" << i << "] = " << ruleta[i] << endl;
-				if( ruleta[i] > numAux){
-					posA = i - 1;
-					cout << "Elijo posicion inicial" << endl;
 				}
+
+				if(valid){
+
+					potentialParents.push_back(_population[numAux]);
+					aux.push_back(numAux);
+				}
+
 			}
 
-			posB = ( posA + (ruleta.size() / 2) ) % ruleta.size();
+			//Escogemos al mejor individuo de todos para ser uno de los padres
+			evaluatePopulation(potentialParents);
+			pA = potentialParents[potentialParents.size() - 1];
 
 
-			pA = _population[posA];
-			pB = _population[posB];
+			potentialParents.clear();
+			aux.clear();
+
+
+			//Hacemos el torneo para escoger al SEGUNDO padre
+			while(potentialParents.size() < 5){
+
+				numAux = rand() % _population.size();
+				bool valid = true;
+
+				for(int i = 0; i < aux.size(); i++){
+
+					if(numAux == aux[i])
+						valid = false;
+
+				}
+
+				if(valid){
+
+					potentialParents.push_back(_population[numAux]);
+					aux.push_back(numAux);
+				}
+
+			}
+
+			evaluatePopulation(potentialParents);
+			pB = potentialParents[potentialParents.size() - 1];
+
 		}
 
 
@@ -340,9 +358,6 @@ class geneticAlgorithmKP{
 
 		  int pointA, pointB;
 
-//			cout << pB.getSolucion().size() << endl;
-			cout << "Antes de la seleccion de los puntos de cruce" << endl;
-//			cout << "Tamaño soluciones: A --> " << pA.getSolucion().size() << " B --> " << pB.getSolucion().size();
 
 			//Obtenemos dos puntos de cruce diferentes
 			pointA = rand() % pA.getSolucion().size();
@@ -360,12 +375,10 @@ class geneticAlgorithmKP{
 				pointB = aux;
 			}
 
-			cout << "Antes del crossover" << endl;
 
 			SolucionMochila offspring1 = crossover(pA, pB, pointA, pointB);
 			SolucionMochila offspring2 = crossover(pB, pA, pointA, pointB);
 
-			cout << "Tras el Crossover" << endl;
 
 			naturalOrder.push_back(offspring1);
 			naturalOrder.push_back(offspring2);
@@ -414,8 +427,10 @@ class geneticAlgorithmKP{
 		void selectIndividuals(vector <SolucionMochila> &naturalOrder){
 
 
+//			evaluatePopulation(naturalOrder);
+
 			while(naturalOrder.size() > 2)
-				naturalOrder.erase( naturalOrder.begin() );
+				naturalOrder.erase( naturalOrder.begin());
 
 		}
 
