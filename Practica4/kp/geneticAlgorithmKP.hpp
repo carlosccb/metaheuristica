@@ -244,18 +244,19 @@ class geneticAlgorithmKP{
 
 
 		  SolucionMochila pA, pB;
-		  SolucionMochila child;
+		  vector <SolucionMochila> subPopulation;
 
 			selectParents(pA, pB);
 
 			//Obtenemos una subpoblacion con los padres y los hijos que estos generan
-			child = geneticOperator(pA, pB);
+			subPopulation = geneticOperator(pA, pB);
 
 			//Dejamos en el vector solo a los dos mejores individuos
-//			selectIndividuals(subPopulation);
+			selectIndividuals(subPopulation);
 
 
-			newPopulation.push_back(child);
+			newPopulation.push_back(subPopulation[0]);
+			newPopulation.push_back(subPopulation[1]);
 		}
 
 
@@ -346,11 +347,15 @@ class geneticAlgorithmKP{
 		------------------------------------------------------------------------*/
 
 
-		SolucionMochila geneticOperator(const SolucionMochila &pA, const SolucionMochila &pB){
+		vector <SolucionMochila> geneticOperator(const SolucionMochila &pA, const SolucionMochila &pB){
 
-		  SolucionMochila hijo;
+		  vector <SolucionMochila> naturalOrder;
 		  vector <bool> solucion;
+		  SolucionMochila hijo;
 		  int numAux;
+
+			naturalOrder.push_back(pA);
+			naturalOrder.push_back(pB);
 
 			for(int i = 0; i < pA.getSolucion().size(); i++){
 
@@ -372,24 +377,25 @@ class geneticAlgorithmKP{
 
 			hijo.setSolucion(solucion);
 			hijo.setAptitude(_KPSize, _info);
+			naturalOrder.push_back(hijo);
 
-		  return hijo;
+		  return naturalOrder;
 		}
 
 
 
-/*
+
 		//Funcion que escoge entre los dos mejores individuos despues de un cruce
 		void selectIndividuals(vector <SolucionMochila> &naturalOrder){
 
 
-//			evaluatePopulation(naturalOrder);
+			evaluatePopulation(naturalOrder);
 
 			while(naturalOrder.size() > 2)
 				naturalOrder.erase( naturalOrder.begin());
 
 		}
-*/
+
 
 
 };
