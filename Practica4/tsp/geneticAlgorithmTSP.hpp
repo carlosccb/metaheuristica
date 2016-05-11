@@ -63,12 +63,13 @@ class geneticAlgorithmTSP{
 			
 			clock_t time = clock();
 			double tiempo = 0.0;
+			double hora = 3600.0;
 
 			//Tras ordenar, el primer elemento de la poblacion es el mejor
 			bestSolution = _population[0];
 
 
-			while(contador < 100000 && tiempo < 3600.0){
+			while(contador < 100000 && tiempo < (1 * hora))){
 
 
 				vector <SolucionViajante> auxiliarPopulation;
