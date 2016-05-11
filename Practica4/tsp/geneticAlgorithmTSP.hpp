@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
+#include <ctime>
 
 #include "../lib/Miscelanea.hpp"
 
@@ -59,13 +60,15 @@ class geneticAlgorithmTSP{
 
 
 			evaluatePopulation(_population);
-
+			
+			clock_t time = clock();
+			double tiempo = 0.0;
 
 			//Tras ordenar, el primer elemento de la poblacion es el mejor
 			bestSolution = _population[0];
 
 
-			while(contador < 100000){
+			while(contador < 100000 && tiempo < 3600.0){
 
 
 				vector <SolucionViajante> auxiliarPopulation;
@@ -86,6 +89,7 @@ class geneticAlgorithmTSP{
 
 
 				contador++;
+				tiempo = tiempo + ((double) (clock() - time)/CLOCKS_PER_SEC);
 			}
 
 
