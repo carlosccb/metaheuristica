@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <vector>
+#include <ctime>
 
 #include "../lib/Miscelanea.hpp"
 
@@ -64,12 +65,16 @@ class geneticAlgorithmKP{
 
 			_population = initializePopulation(POP_SIZE2);	//Inicializamos la poblacion
 			evaluatePopulation(_population);
+			
+			clock_t time = clock();
+			double tiempo = 0;
+			double hora = 3600.0;
 
 			//Tras ordenar, el primer elemento de la poblacion es el mejor
 			bestSolution = _population[_population.size() - 1];
 
-
-			while(contador < 10000){
+                       
+			while(contador < 100000 && tiempo < (1 * hora)){
 
 
 			  vector <SolucionMochila> auxiliarPopulation;
@@ -91,6 +96,7 @@ class geneticAlgorithmKP{
 
 
 				contador++;
+				tiempo = tiempo + ((double) (clock() - time)/CLOCKS_PER_SEC);
 			}
 
 
