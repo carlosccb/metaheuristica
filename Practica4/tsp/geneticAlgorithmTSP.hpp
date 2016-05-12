@@ -90,7 +90,7 @@ class geneticAlgorithmTSP{
 
 
 				contador++;
-				tiempo = tiempo + ((double) (clock() - time)/CLOCKS_PER_SEC);
+				tiempo = tiempo + ((clock() - time) / (double) CLOCKS_PER_SEC);
 			}
 
 
@@ -190,8 +190,6 @@ class geneticAlgorithmTSP{
 		  unsigned int len = population.size();
 
 
-//			cout << endl << "Tamaño poblacion: " << population.size() << endl;
-
 			while (1) {
 
 				for (; left+1 < len; len++){
@@ -227,9 +225,6 @@ class geneticAlgorithmTSP{
 	        	len = stack[--pos];
 			}
 
-
-//			for(int i = 0; i < population.size(); i++)
-//				cout << "Fitness " << i << ": " << population[i].getFitness() << endl;
 
 		}
 
@@ -470,10 +465,10 @@ class geneticAlgorithmTSP{
 		void selectIndividuals(vector <SolucionViajante> &naturalOrder){
 
 
-//			evaluatePopulation(naturalOrder);
+			evaluatePopulation(naturalOrder);
 
 			while(naturalOrder.size() > 2)
-				naturalOrder.erase( naturalOrder.begin() /* + (naturalOrder.size() - 1)*/ );
+				naturalOrder.erase( naturalOrder.begin()  + (naturalOrder.size() - 1) );
 
 		}
 
