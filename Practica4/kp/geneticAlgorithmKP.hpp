@@ -60,6 +60,7 @@ class geneticAlgorithmKP{
 
 
 		  SolucionMochila bestSolution;
+		  InstanceKP instancia;
 		  int contador = 1;		//Variable con el numero de iteraciones
 
 
@@ -78,6 +79,8 @@ class geneticAlgorithmKP{
 
 
 			  vector <SolucionMochila> auxiliarPopulation;
+
+				instancia.saveResults(contador, bestSolution, _population[_population.size() - 1]);
 
 				//Creamos la nueva poblacion por completo
 				while(auxiliarPopulation.size() < _population.size())

@@ -55,6 +55,7 @@ class geneticAlgorithmTSP{
 
 		  SolucionViajante bestSolution;
 		  int contador = 1;		//Variable con el numero de iteraciones
+		  InstanceTSP instancia;
 
 			_population = initializePopulation(POP_SIZE);	//Inicializamos la poblacion
 
@@ -72,7 +73,9 @@ class geneticAlgorithmTSP{
 			while(contador < 100000 && tiempo < (1 * hora)) {
 
 
-				vector <SolucionViajante> auxiliarPopulation;
+			  vector <SolucionViajante> auxiliarPopulation;
+
+				instancia.saveResults(contador, bestSolution, _population[0]);
 
 				//Creamos la nueva poblacion por completo
 				while(auxiliarPopulation.size() < _population.size())
