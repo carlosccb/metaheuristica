@@ -69,7 +69,7 @@ class geneticAlgorithmTSP{
 			bestSolution = _population[0];
 
 
-			while(contador < 100000 && tiempo < (1 * hora))){
+			while(contador < 100000 && tiempo < (1 * hora)) {
 
 
 				vector <SolucionViajante> auxiliarPopulation;
