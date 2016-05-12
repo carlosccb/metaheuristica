@@ -110,15 +110,33 @@ class InstanceKP : public Instance {
 
 		}
 
+
+
+		void saveResults(const int &it, const SolucionMochila &best_global, const SolucionMochila &best_actual){
+
+
+		  string line;
+		  ofstream fs;
+
+			fs.open("KP_Iteraciones.txt", std::ofstream::app);
+
+			fs << it << " " << best_global.getFitness() << " " << best_actual.getFitness() << endl;
+
+			fs.close();
+
+		}
+
+
 		//Funcion que almacena en un fichero una serie de datos de salida del programa
 		void simpleSaveResults(const SolucionMochila &inicial, const double &best_fitness, double &tiempo, int iteraciones) {
 
 		  string line;
+		  ofstream fs;
 
-                  fs.open("KP_Fitness&Time.txt", std::ofstream::app);
-                  if (iteraciones != 1) fs << endl;
-                   fs << iteraciones << " " << inicial.getFitness() << " " << best_fitness << " " <<  tiempo <<  " " << endl;
-                  fs.close();
+		      fs.open("KP_Fitness&Time.txt", std::ofstream::app);
+		      if (iteraciones != 1) fs << endl;
+		       fs << iteraciones << " " << inicial.getFitness() << " " << best_fitness << " " <<  tiempo <<  " " << endl;
+		      fs.close();
 
 		}
 

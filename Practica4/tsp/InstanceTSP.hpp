@@ -100,6 +100,29 @@ class InstanceTSP : public Instance {
 
 		}
 
+
+
+
+
+		void saveResults(const int &it, const SolucionViajante &best_global, const SolucionViajante &best_actual){
+
+
+		  string line;
+		  ofstream fs;
+
+			fs.open("TSP_Iteraciones.txt", std::ofstream::app);
+
+			fs << it << " " << best_global.getFitness() << " " << best_actual.getFitness() << endl;
+
+			fs.close();
+
+		}
+
+
+
+
+
+
 };
 
 #endif
