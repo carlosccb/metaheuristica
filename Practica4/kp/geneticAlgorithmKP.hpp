@@ -99,7 +99,7 @@ class geneticAlgorithmKP{
 
 
 				contador++;
-				tiempo = tiempo + ((clock() - time) / (double) CLOCKS_PER_SEC);
+				tiempo = ((clock() - time) / (double) CLOCKS_PER_SEC);
 			}
 
 
